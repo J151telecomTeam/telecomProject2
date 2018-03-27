@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:cache="http://www.springframework.org/schema/cache" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/cache 
+        http://www.springframework.org/schema/cache/spring-cache.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/task    
+		http://www.springframework.org/schema/task/spring-task-3.0.xsd 
+        ">
+
+
+	<!-- 1、开启容器的自动扫描功能 -->
+	<context:component-scan base-package="com.telecom.project">
+
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Repository" />
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- 2、引入外部数据源配置文件 -->
+	<context:property-placeholder location="classpath:mysql.properties"
+		ignore-resource-not-found="true" ignore-unresolvable="true" />
+
+	<!-- 3、配置数据源连接池 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<!-- 配置JDBC连接DB的基本4件套 -->
+		<!-- driverClassName 在Druid中，可以根据URL自动锁定DriverClassName，所以可以不用配置 -->
+		<!-- <property name="driverClassName" value="${jdbc.driver}"></property> -->
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="15" />
+		<property name="minIdle" value="0" />
+		<property name="maxActive" value="50" />
+
+		<!-- 配置获取连接等待超时的时间，单位:毫秒 -->
+		<property name="maxWait" value="60000" />
+
+
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+
+
+		<!-- 用于设置校验连接是否正常的查询语句 -->
+		<property name="validationQuery" value="select now() from dual" />
+
+
+
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize"
+			value="200" />
+	</bean>
+
+	<!-- 4、配置SessionFactory -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="hibernateProperties">
+			<props>
+				<!-- 数据库的方言，定义的是：当前hibernate框架，操作的是哪一种数据库 -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+
+		</property>
+
+		<!-- packagesToScan 自动扫描使用JPA规范，完成ORM映射的JavaBean,只扫描注解 -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.telecom.project.beans</value>
+				<!-- <value>org.framestudy.ssh.beans</value> -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- 4、配置localEntityManagerFactoryBean 在sessionFactory的基础上，并且完成了对Dao接口的实现 -->
+	<bean id="localEntityManagerFactoryBean"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<!-- 需要数据源连接中，提供连接 -->
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 配置Jpa底层操作时，依旧需要转换成Hibernate的操作方式 -->
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"></bean>
+		</property>
+
+
+
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+
+		<property name="packagesToScan">
+			<list>
+				<value>com.telecom.project.beans</value>
+			</list>
+		</property>
+
+
+
+	</bean>
+
+
+	<!-- 5、配置Mapper映射扫描组件 
+	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="
+		com.telecom.project.usermag.mapper"></property>
+
+		<property name="sqlSessionFactoryBeanName" value="sessionFactory"></property>
+	</bean> -->
+
+
+	<!-- 5、配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="localEntityManagerFactoryBean"></property>
+	</bean>
+
+	<!-- 6、配置spring容器管理事务的两种方案： -->
+	<!-- spring容器提供了2种事务管理手段，1种：编程式事务管理方法，2种：声明式事务管理方法（常用） -->
+	<!-- 声明式事务管理方案1: 注解控制事务 <tx:annotation-driven transaction-manager="transactionManager"/> -->
+
+	<!-- 声明式事务管理方案2: 切面控制事务（常用） -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" read-only="true" />
+			<!-- 定义新增方法 -->
+			<tx:method name="add*" read-only="false" isolation="DEFAULT"
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="save*" read-only="false" isolation="DEFAULT"
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="insert*" read-only="false" isolation="DEFAULT"
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="create*" read-only="false" isolation="DEFAULT"
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+
+			<!-- 定义修改方法 -->
+			<tx:method name="update*" read-only="false" isolation="DEFAULT"
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="modify*" read-only="false" isolation="DEFAULT"
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="change*" read-only="false" isolation="DEFAULT"
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+
+			<!-- 定义删除方法 -->
+			<tx:method name="delete*" read-only="false" isolation="DEFAULT"
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="remove*" read-only="false" isolation="DEFAULT"
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+
+
+
+	<aop:config>
+		<aop:pointcut id="pointExpression"
+			expression="execution(* com.telecom.project.*mag.service.impl.*ServiceImpl.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointExpression" />
+	</aop:config>
+
+	<!-- 开启切面的动态代理支持 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+	<!-- base-package 主要完成自动扫描，扫描满足JPA规范的DAO接口 -->
+	<!-- entity-manager-factory-ref 再使用这个标签所对应的localEntityManagerFactoryBean，完成对上述接口实例化，并且注入Session -->
+	<jpa:repositories base-package="com.telecom.project"
+		entity-manager-factory-ref="localEntityManagerFactoryBean"></jpa:repositories>
+
+
+	<!-- 添加shiro配置 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/login" />
+		<property name="successUrl" value="/jsp/user" />
+		<property name="unauthorizedUrl" value="/jsp/user" />
+		<property name="filterChainDefinitions">
+			<value>
+				/jsp/** = anon
+			</value>
+		</property>
+	</bean>
+
+
+	<!-- 添加securityManagerper配置 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- 单realm应用。如果有多个realm，使用‘realms’属性代替 -->
+		<property name="realm" ref="sampleRealm" />
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+
+
+	<!-- 配置jdbcRealm -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager" />
+
+	<bean id="sampleRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
+		<property name="dataSource" ref="dataSource" />
+		<property name="authenticationQuery"
+			value="select a_password from t_admin t where a_account = ?" />
+		<property name="userRolesQuery"
+			value="select r.name from t_admin a left join t_role r on a.a_r_id = r.r_id where a.a_account = ? " />
+		<property name="permissionsQuery"
+			value="select p.p_name from t_role r left join t_role_power rp on r.r_id = rp.rp_r_id left join t_power p on rp.rp_p_id = p.p_id where r.r_name = ?" />
+		<property name="permissionsLookupEnabled" value="true" />
+		<property name="saltStyle" value="NO_SALT" />
+		<property name="credentialsMatcher" ref="hashedCredentialsMatcher" />
+	</bean>
+
+	<bean id="hashedCredentialsMatcher"
+		class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<property name="hashAlgorithmName" value="MD5" />
+		<property name="storedCredentialsHexEncoded" value="true" />
+		<property name="hashIterations" value="1" />
+	</bean>
+
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<bean id="annotationProxy"
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+
+	<!-- 开启Shiro注解的Spring配置方式的beans。在lifecycleBeanPostProcessor之后运行 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor" />
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">
+					/unauthorized
+				</prop>
+				<prop key="org.apache.shiro.authz.UnauthenticatedException">
+					/unauthenticated
+				</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	 <!--开启这个配置，spring才能识别@Scheduled注解-->    
+    <task:annotation-driven/>    
+
+
+
+</beans>
