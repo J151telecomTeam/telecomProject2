@@ -47,7 +47,7 @@
 			style="position: absolute; margin-top: 1px; margin-left: 93%;">[退出登陆]</a>
 	</div>
 
-	<div data-options="region:'center',title:'数据列表',iconCls:'icon-ok'"
+	<div data-options="region:'center',title:'数据列表'"
 		style="padding: 5px; background: #eee;">
 
 		<iframe id="ifr1" name="iframe"

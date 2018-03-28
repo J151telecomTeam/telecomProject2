@@ -51,9 +51,6 @@
             <th data-options="field:'ip',width:70,align:'center',sortable:true">服务器IP</th>
              <th data-options="field:'true',width:70,align:'center',sortable:true">是否可用</th>
              <th data-options="field:'state',width:70,align:'center',sortable:true">服务器状态</th>
-             <th data-options="field:'chuzu',width:70,align:'center',sortable:true">出租人员</th>
-             <th data-options="field:'weihu',width:70,align:'center',sortable:true">维护人员</th>
-           
         </tr>
         </thead>         	
     </table>

@@ -1,23 +1,24 @@
-package com.telecom.project.servermag.queryServerDao;
+package com.telecom.project.servermag.queryservice;
 
 import java.util.List;
 import java.util.Map;
 
 import com.telecom.project.beans.PageBean;
 import com.telecom.project.beans.ServerBean;
+import com.telecom.project.beans.ServerUseMoneyBean;
 
 /**
- * 服务器查询持久层接口
+ * 服务器查询业务接口
  * @author 
  *
  */
-public interface IOperationServerDao {
+public interface IQueryServerService {
 	
 	/**
 	 * 用户查服务器
 	 * @return
 	 */
-	public List<ServerBean> findServerByUser();
+	public List<ServerBean> findServerByUser(long id);
 	
 	/**
 	 * 查询所有服务器分页
@@ -40,4 +41,17 @@ public interface IOperationServerDao {
 	 */
 	public PageBean findByParams2PageBean(PageBean page,Map params);
 	
+	/**
+	 * 根据id查询服务器使用费用明细
+	 * @param id
+	 * @return
+	 */
+	public ServerBean findByServerId(long id);
+	
+	/**
+	 * 资费查服务器
+	 * @param id
+	 * @return
+	 */
+	public ServerBean findServerByDeal(long id);
 }

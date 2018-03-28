@@ -10,7 +10,7 @@ import com.telecom.project.beans.ChangeBean;
  * @author 
  *
  */
-public interface IOperationChangeService {
+public interface IOperationService {
 	/**
 	 * 新增操作日志
 	 * @param server

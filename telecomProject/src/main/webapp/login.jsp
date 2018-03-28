@@ -5,20 +5,44 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript"
+	src="/telecomProject/static/js/jquery-3.3.1.min.js" charset="utf-8"></script>
+<script type="text/javascript"
+	src="/telecomProject/static/js/jquery.json-2.4.js" charset="utf-8"></script>
+<script type="text/javascript"
+	src="/telecomProject/static/easyui/jquery.easyui.min.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="/telecomProject/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+
+<link rel="stylesheet" type="text/css"
+	href="/telecomProject/static/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/telecomProject/static/easyui/themes/icon.css">
 </head>
-<body>
-	<form action="login" method="post">
-		<td>用户名：</td>
-		<td><input type="text" name="username"></input></td>
-		<br />
-		<td>密码：</td>
-		<td><input type="password" name="password"></input></td>
-		<br />
-		<td>记住我</td>
-		<td><input type="checkbox" name="rememberMe" /></td>
-		<br/>
-		<input type="submit" value="登陆"/>
-	</form>
-	<a href="jsp/home/adminpage.jsp">暂用登陆</a>
+<body style="width: 100%;height:100%;margin: 0px;background: url(/telecomProject/static/img/1.jpg) no-repeat;background-size: 100%;">
+		
+		<div style="width:450px;height:450px;background: url(/telecomProject/static/img/2.jpg) no-repeat;background-size: 100%; position:absolute;left:32%; top:25%;">
+			<form action="/telecomProject/jsp/home/adminpage.jsp" method="post">
+				<div style="position:absolute; margin-left:28%; margin-top: 13%;">
+					<p style="height: 12px;">用户名</p><input style="width: 200px;" class="easyui-textbox" type="text" name="username"></input>
+				</div>
+				<div style="position:absolute; margin-left:28%; margin-top: 28%;">
+					<p style="height: 12px;">密码</p><input style="width: 200px;" class="easyui-textbox" type="password" name="password"></input>
+				</div>
+				<div style="position:absolute; margin-left:28%; margin-top: 48%;">
+					<input style="width: 80px;height: 40px;" class="easyui-linkbutton" type="submit" value="用户登陆" />
+					<input style="width: 80px;height: 40px;margin-left: 39px;" class="easyui-linkbutton" type="submit" value="管理员登陆" />
+				</div>
+			</form>
+		</div>
+		
+		
+		
+	</div>
+		
+	</div>
+	
+
 </body>
 </html>

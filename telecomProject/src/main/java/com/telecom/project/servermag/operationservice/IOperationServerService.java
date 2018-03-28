@@ -1,4 +1,4 @@
-package com.telecom.project.servermag.operationServerService;
+package com.telecom.project.servermag.operationservice;
 
 
 import java.util.List;
@@ -33,6 +33,6 @@ public interface IOperationServerService {
 	 * 批量删除
 	 * @param servers
 	 */
-	public void deleteBatchServerBean(List<ServerBean> servers);
+	public void deleteBatchServerBean(List<Long> id);
 	
 }
