@@ -63,4 +63,10 @@ public class QueryServerDaoImpl implements IQueryServerDao{
 		return sm.findServerByPage(map);
 	}
 
+	@Override
+	public List<ServerBean> findServerByDeal(long id) {
+		// TODO Auto-generated method stub
+		return sm.findServerByDeal(id);
+	}
+
 }

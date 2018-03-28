@@ -56,5 +56,12 @@ public interface IQueryServerDao {
 	 * @return
 	 */
 	public long findServerByPage(Map map);
+
+	/**
+	 * 资费查服务器
+	 * @param id
+	 * @return
+	 */
+	public List<ServerBean> findServerByDeal(long id);
 	
 }

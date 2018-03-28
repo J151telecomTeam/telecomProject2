@@ -58,13 +58,13 @@ public class QueryServerServiceImpl implements IQueryServerService{
 	@Override
 	public List<ServerBean> findAllServer() {
 		// TODO Auto-generated method stub
-		return null;
+		return queryServerDaoImpl.findAllServer();
 	}
 
 	@Override
-	public ServerBean findServerByDeal(long id) {
+	public List<ServerBean> findServerByDeal(long id) {
 		// TODO Auto-generated method stub
-		return null;
+		return queryServerDaoImpl.findServerByDeal(id);
 	}
 
 }

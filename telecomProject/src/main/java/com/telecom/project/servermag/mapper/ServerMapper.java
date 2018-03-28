@@ -80,5 +80,16 @@ public interface ServerMapper {
 	 */
 	public long findServerByPage(@Param("map") Map map);
 
+	/**
+	 * 资费查服务器
+	 * @param id
+	 * @return
+	 */
+	@ResultMap(value = "serverMap")
+	@Select(value = {
+			"select s.s_id from" + " t_service s left join t_service_account sa on sa.s_s_id = s.s_id left join"
+					+ " t_deal d on sa.s_d_id = d.d_id where d.d_id = #{id}" })
+	public List<ServerBean> findServerByDeal(long id);
+
 
 }

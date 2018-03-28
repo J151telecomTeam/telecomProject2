@@ -53,5 +53,5 @@ public interface IQueryServerService {
 	 * @param id
 	 * @return
 	 */
-	public ServerBean findServerByDeal(long id);
+	public List<ServerBean> findServerByDeal(long id);
 }
