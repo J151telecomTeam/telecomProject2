@@ -20,7 +20,7 @@ public interface IOperationServerDao extends JpaRepository<ServerBean, Long>,Jpa
 	 * @param id
 	 */
 	@Modifying
-	@Query(value="update ServerBean as s set s_delete = 1 where s.id = ?1")
+	@Query(value="delete from ServerBean as s where s.id = ?1")
 	public void deleteServerBeanById(long id);
 	
 	/**
@@ -28,7 +28,7 @@ public interface IOperationServerDao extends JpaRepository<ServerBean, Long>,Jpa
 	 * @param servers
 	 */
 	@Modifying
-	@Query(value="update ServerBean as s set s_delete = 1 where s.id in ?1")
+	@Query(value="delete from ServerBean as s where s.id in ?1")
 	public void deleteBatchServerBean(List<Long> id);
 	
 }

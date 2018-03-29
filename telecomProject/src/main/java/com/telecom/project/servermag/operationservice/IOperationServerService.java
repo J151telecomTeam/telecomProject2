@@ -33,6 +33,6 @@ public interface IOperationServerService {
 	 * 批量删除
 	 * @param servers
 	 */
-	public void deleteBatchServerBean(List<Long> id);
+	public void deleteBatchServerBean(List<ServerBean> servers);
 	
 }

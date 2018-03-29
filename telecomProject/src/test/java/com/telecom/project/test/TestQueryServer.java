@@ -32,18 +32,16 @@ public class TestQueryServer {
 		PageBean page = new PageBean(1,3);
 		Map map = new HashMap();
 		map.put("name", "b");
-		page = queryServerServiceImpl.findAllServerPage(page);
-		System.out.println(page);
+		List<ServerBean> list = queryServerServiceImpl.findAllServer();
+		System.out.println(list);
 	}
 	
 	@Test
 	public void testAddServer() {
 		ServerBean bean = new ServerBean();
 		bean.setName("b");
-		List<Long> list = new ArrayList<Long>();
-		list.add(1l);
-		list.add(2l);
-		list.add(3l);
-		operationServerServiceImpl.saveServerBean(bean);
+		
+		List<ServerBean> list = new ArrayList<ServerBean>();
+		operationServerServiceImpl.deleteBatchServerBean(queryServerServiceImpl.findAllServer());
 	}
 }

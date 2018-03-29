@@ -1,5 +1,6 @@
 package com.telecom.project.servermag.operationservice.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -41,9 +42,14 @@ public class OperationServerServiceImpl implements IOperationServerService{
 	}
 
 	@Override
-	public void deleteBatchServerBean(List<Long> id) {
+	public void deleteBatchServerBean(List<ServerBean> servers) {
 		// TODO Auto-generated method stub
-		operationServerDao.deleteBatchServerBean(id);
+		List<Long> list = new ArrayList<Long>();
+		for (ServerBean server : servers) {
+			list.add(server.getId());
+		}
+		System.out.println(list);
+		operationServerDao.deleteBatchServerBean(list);
 	}
 
 }

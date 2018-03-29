@@ -49,9 +49,9 @@ public class ServerBean implements Serializable{
 	@Column(name="s_maintain",length=20)
 	private String maintain; //服务器状态
 	
-	@OneToMany(fetch=FetchType.LAZY,mappedBy="server")
-	@Cascade(value= {CascadeType.ALL})
-	private List<BusinessAccountBean> business;
+//	@OneToMany(fetch=FetchType.LAZY,mappedBy="server")
+//	@Cascade(value= {CascadeType.ALL})
+//	private List<BusinessAccountBean> business;
 
 	public ServerBean() {
 		// TODO Auto-generated constructor stub
@@ -98,13 +98,13 @@ public class ServerBean implements Serializable{
 	}
 	
 
-	public List<BusinessAccountBean> getBusiness() {
-		return business;
-	}
-
-	public void setBusiness(List<BusinessAccountBean> business) {
-		this.business = business;
-	}
+//	public List<BusinessAccountBean> getBusiness() {
+//		return business;
+//	}
+//
+//	public void setBusiness(List<BusinessAccountBean> business) {
+//		this.business = business;
+//	}
 
 	@Override
 	public String toString() {
