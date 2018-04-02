@@ -99,11 +99,11 @@ $('#add_controllers').click(function(){
 				$('#b_password').attr('value',row.password);
 				$('#b_tel').attr('value', row.tel);
 				$('#b_mail').attr('value',row.mail);
-				$('#b_r_id').combobox('select',row.role);
+				$('#b_r_id').combobox('select',row.role.id);
 				$('#update_controller').form('validate');
 				console.info(row.name);
 				console.info(row.account);
-				
+				console.info(row.role);
 			}else{
 				$.messager.show({
 					title:'消息提示',

@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.telecom.project.adminmag.operationServerService.IOperationAdminService;
 import com.telecom.project.beans.AdminBean;
 import com.telecom.project.beans.BillMonthBean;
 import com.telecom.project.billmag.operationdao.IOperationBillDao;

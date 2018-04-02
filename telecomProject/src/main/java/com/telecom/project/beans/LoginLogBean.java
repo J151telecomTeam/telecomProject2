@@ -17,7 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
  *
  */
 @Entity
-@Table(name="t_loginlog")
+@Table(name="t_loginlog",catalog="telecom")
 public class LoginLogBean implements Serializable{
 
 	/**

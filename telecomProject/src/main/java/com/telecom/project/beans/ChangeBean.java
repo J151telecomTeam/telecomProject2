@@ -17,7 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
  *
  */
 @Entity
-@Table(name="t_change")
+@Table(name="t_change",catalog="telecom")
 public class ChangeBean implements Serializable{
 
 	/**
