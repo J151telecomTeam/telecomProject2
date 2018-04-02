@@ -73,7 +73,7 @@
 		<property name="maxPoolPreparedStatementPerConnectionSize"
 			value="200" />
 	</bean>
-
+	
 	<!-- 4、配置SessionFactory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -122,20 +122,37 @@
 				<value>com.telecom.project.beans</value>
 			</list>
 		</property>
-
-
-
 	</bean>
 
 
-	<!-- 5、配置Mapper映射扫描组件 
+	<!-- 4、配置MybatisSessionFactory -->
+	<bean id="mySessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- mybatis采用","或";"，来完成包的拼接 -->
+		<!-- typeAliasesPackage 主要是用于完成对包中的类，进行取类的类别名 -->
+		<property name="typeAliasesPackage" value="com.telecom.project.beans;"></property>
+	</bean>
+
+	<!-- 5、配置Mapper映射扫描组件 -->
 	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="
-		com.telecom.project.usermag.mapper"></property>
+		com.telecom.project.adminmag.mapper;
+		com.telecom.project.rolemag.mapper;
+		com.telecom.project.changelogmag.mapper;
+		com.telecom.project.loginlogmag.mapper;
+		com.telecom.project.servermag.mapper;
+		com.telecom.project.usermag.mapper;
+		com.telecom.project.businessaccountmag.mapper;
+		com.telecom.project.powermag.mapper;
+		com.telecom.project.rolemag.mapper;
+		com.telecom.project.billmag.mapper;
+		com.telecom.project.accountingmag.mapper;
+		com.telecom.project.dealmag.mapper;
+		com.telecom.project.reportformsmag.mapper"></property>
 
-		<property name="sqlSessionFactoryBeanName" value="sessionFactory"></property>
-	</bean> -->
-
+		<property name="sqlSessionFactoryBeanName" value="mySessionFactory"></property>
+	</bean>
+	
 
 	<!-- 5、配置事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -177,11 +194,9 @@
 	</tx:advice>
 
 
-
-
 	<aop:config>
 		<aop:pointcut id="pointExpression"
-			expression="execution(* com.telecom.project.*mag.service.impl.*ServiceImpl.*(..))" />
+			expression="execution(* com.telecom.project.*mag.*service.impl.*ServiceImpl.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="pointExpression" />
 	</aop:config>
 
@@ -222,9 +237,9 @@
 	<bean id="sampleRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
 		<property name="dataSource" ref="dataSource" />
 		<property name="authenticationQuery"
-			value="select a_password from t_admin t where a_account = ?" />
+			value="select a_password from t_admin where a_account = ?" />
 		<property name="userRolesQuery"
-			value="select r.name from t_admin a left join t_role r on a.a_r_id = r.r_id where a.a_account = ? " />
+			value="select r.r_name from t_admin a left join t_role r on a.a_r_id = r.r_id where a.a_account = ? " />
 		<property name="permissionsQuery"
 			value="select p.p_name from t_role r left join t_role_power rp on r.r_id = rp.rp_r_id left join t_power p on rp.rp_p_id = p.p_id where r.r_name = ?" />
 		<property name="permissionsLookupEnabled" value="true" />
@@ -269,10 +284,10 @@
 			</props>
 		</property>
 	</bean>
-	
-	
-	 <!--开启这个配置，spring才能识别@Scheduled注解-->    
-    <task:annotation-driven/>    
+
+
+	<!--开启这个配置，spring才能识别@Scheduled注解 -->
+	<task:annotation-driven />
 
 
 

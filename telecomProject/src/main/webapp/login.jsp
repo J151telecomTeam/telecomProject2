@@ -23,12 +23,12 @@
 <body style="width: 100%;height:100%;margin: 0px;background: url(/telecomProject/static/img/1.jpg) no-repeat;background-size: 100%;">
 		
 		<div style="width:450px;height:450px;background: url(/telecomProject/static/img/2.jpg) no-repeat;background-size: 100%; position:absolute;left:32%; top:25%;">
-			<form action="/telecomProject/jsp/home/adminpage.jsp" method="post">
+			<form action="/telecomProject/login/login" method="post">
 				<div style="position:absolute; margin-left:28%; margin-top: 13%;">
-					<p style="height: 12px;">用户名</p><input style="width: 200px;" class="easyui-textbox" type="text" name="username"></input>
+					<p style="height: 12px;">用户名</p><input style="width: 200px;" class="easyui-textbox" type="text" id="username" name="username"></input>
 				</div>
 				<div style="position:absolute; margin-left:28%; margin-top: 28%;">
-					<p style="height: 12px;">密码</p><input style="width: 200px;" class="easyui-textbox" type="password" name="password"></input>
+					<p style="height: 12px;">密码</p><input style="width: 200px;" class="easyui-textbox" type="password" id="password" name="password"></input>
 				</div>
 				<div style="position:absolute; margin-left:28%; margin-top: 48%;">
 					<input style="width: 80px;height: 40px;" class="easyui-linkbutton" type="submit" value="用户登陆" />
@@ -37,12 +37,5 @@
 			</form>
 		</div>
 		
-		
-		
-	</div>
-		
-	</div>
-	
-
 </body>
 </html>

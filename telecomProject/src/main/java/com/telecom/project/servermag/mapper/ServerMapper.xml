@@ -19,7 +19,7 @@
 					and s_name like CONCAT(#{map.name},'%')
 			</if>
 			<if test="map.state != null">
-					and s_state like CONCAT(#{map.state},'%')
+					and s_state = map.state
 			</if>
 		</where>
 	</sql>

@@ -7,13 +7,17 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.ResultType;
 import org.apache.log4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.telecom.project.beans.Messager;
@@ -36,18 +40,17 @@ public class ServerController {
 	
 	private Logger log = Logger.getLogger(this.getClass());
 	
-	@RequestMapping(value="/page",method= {RequestMethod.GET},produces= {"application/json;charset=utf-8"})
+	@RequestMapping(value="/page",method= {RequestMethod.POST},produces= {"application/json;charset=utf-8"})
 	public Map findServerAllByPage(PageBean page) {
 		Map map = new HashMap();
-		PageBean bean = new PageBean(page.getPage(),page.getRows());
-		log.info(bean);
+		log.info(page);
 		try {
-			page = queryServerServiceImpl.findAllServerPage(bean);
+			page = queryServerServiceImpl.findAllServerPage(page);
 			map.put("total", page.getTotalRows());
 			map.put("rows", page.getDatas());
 		} catch (Exception e) {
 			// TODO: handle exception
-			log.error("ServerController-----findServerAllByPage()", e);
+			log.error("ServerController-----findServerConByPage()", e);
 		}
 		return map;
 	}
@@ -100,16 +103,17 @@ public class ServerController {
 	}
 	
 	@RequestMapping(value="/conPage",method= {RequestMethod.POST},produces= {"application/json;charset=utf-8"})
-	public Map findServerConByPage(ServerBean server) {
+	public Map findServerConByPage(PageBean page,ServerBean server) {
 		Map map = new HashMap();
+		Map map2 = new HashMap();
 		map.put("name", server.getName());
 		map.put("state", server.getState());
 		log.info(server);
-		PageBean bean = new PageBean(1,10);
 		try {
-			bean = queryServerServiceImpl.findByParams2PageBean(bean, map);
-			map.put("total", bean.getTotalRows());
-			map.put("rows", bean.getDatas());
+			page = queryServerServiceImpl.findAllServerPage(page);
+			map2.put("total", page.getTotalRows());
+			map2.put("rows", page.getDatas());
+			System.out.println(map2);
 		} catch (Exception e) {
 			// TODO: handle exception
 			log.error("ServerController-----findServerConByPage()", e);

@@ -27,6 +27,12 @@ public class QueryServerServiceImpl implements IQueryServerService{
 	@Override
 	public PageBean findByParams2PageBean(PageBean page, Map params) {
 		// TODO Auto-generated method stub
+		if(params.get("state").equals("无")) {
+			params.put("state" , null);
+		}
+		if(params.get("name").equals("")) {
+			params.put("name" , null);
+		}
 		long totalRows = queryServerDaoImpl.findServerByPage(params);
 		page.setDatas(queryServerDaoImpl.findByParams2PageBean(page, params));
 		page.setTotalRows(totalRows);

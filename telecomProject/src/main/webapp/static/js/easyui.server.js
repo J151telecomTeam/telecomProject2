@@ -5,7 +5,7 @@ $(function(){
 	 */
 	$('#servertt').datagrid({
 		url:"/telecomProject/server/page",
-		method:"GET",
+		method:"POST",
 		queryParams:queryParams()
 	});
 	
@@ -32,19 +32,19 @@ $(function(){
 	 * 真·模糊查询
 	 */
 	$('#con_server_execute').click(function(){
-		var url = "/telecomProject/server/conPage";
-		$('#select_server').form('submit', {
-			url: url,
-			onSubmit: function(){   
-		        // do some check
-		        // return false to prevent submit;
-		    	return true;
-		    },   
-		    success: function(msg){
-		    	queryParams:queryParams()
-			   }
-		    
-		});
+		    var data = {};
+		    var form = $('#select_server').serializeArray();
+		    $.each(form, function() {
+		      data[this.name] = this.value;
+		    });
+		    console.info(data);
+		$('#servertt').datagrid({
+    		url:"/telecomProject/server/conPage",
+    		data: [data],
+    		method:"POST",
+    		queryParams:queryParams()
+    	});
+		$('#select_server_dialog').dialog('close');
 	});
 	
 	/**

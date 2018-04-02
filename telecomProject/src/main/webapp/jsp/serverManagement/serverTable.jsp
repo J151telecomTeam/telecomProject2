@@ -41,7 +41,7 @@
 			<a id="liveServer"
 			href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true">激活</a>
 	</div>
- <table id="servertt" class="easyui-datagrid"
+ 	<table id="servertt" class="easyui-datagrid"
            style="width: auto; height: 100%"
            data-options="fitColumns:true,method:'GET',idField:'id',striped:true,singleSelect:false,toolbar:'#tb',pagination:true">
         <thead>
