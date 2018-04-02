@@ -5,7 +5,7 @@ $(function(){
 	 */
 	$('#servertt').datagrid({
 		url:"/telecomProject/server/page",
-		method:"POST",
+		method:"GET",
 		queryParams:queryParams()
 	});
 	
@@ -37,12 +37,12 @@ $(function(){
 		    $.each(form, function() {
 		      data[this.name] = this.value;
 		    });
-		    console.info(data);
+		    console.info(data.state);
 		$('#servertt').datagrid({
     		url:"/telecomProject/server/conPage",
     		data: [data],
     		method:"POST",
-    		queryParams:queryParams()
+    		queryParams:{name:data.name,state:data.state}
     	});
 		$('#select_server_dialog').dialog('close');
 	});

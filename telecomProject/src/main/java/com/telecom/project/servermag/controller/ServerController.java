@@ -40,7 +40,7 @@ public class ServerController {
 	
 	private Logger log = Logger.getLogger(this.getClass());
 	
-	@RequestMapping(value="/page",method= {RequestMethod.POST},produces= {"application/json;charset=utf-8"})
+	@RequestMapping(value="/page",method= {RequestMethod.GET},produces= {"application/json;charset=utf-8"})
 	public Map findServerAllByPage(PageBean page) {
 		Map map = new HashMap();
 		log.info(page);
@@ -110,15 +110,14 @@ public class ServerController {
 		map.put("state", server.getState());
 		log.info(server);
 		try {
-			page = queryServerServiceImpl.findAllServerPage(page);
+			page = queryServerServiceImpl.findByParams2PageBean(page, map);
 			map2.put("total", page.getTotalRows());
 			map2.put("rows", page.getDatas());
-			System.out.println(map2);
 		} catch (Exception e) {
 			// TODO: handle exception
 			log.error("ServerController-----findServerConByPage()", e);
 		}
-		return map;
+		return map2;
 	}
 	
 	@RequestMapping(value="/update/{id}",method= {RequestMethod.POST},produces= {"application/json;charset=utf-8"})
