@@ -3,30 +3,51 @@ package com.telecom.project.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * 操作日志bean
  * @author 
  *
  */
+@Entity
+@Table(name="t_change")
 public class ChangeBean implements Serializable{
 
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = -877521529516238384L;
 	
+	@Id
+	@Column(name="c_id")
+	@GenericGenerator(name= "hibernate.id",strategy="identity")
+	@GeneratedValue(generator="hibernate.id")
 	private long id; //主键
 	
+	@Column(name="c_change_time")
 	private Date changeTime; // 操作时间
 	
+	@Column(name="c_name",length=20)
 	private String name; //操作人员的姓名
 	
+	@Column(name="c_type",length=20)
 	private String type; //操作类型
 	
+	@Column(name="c_description")
 	private String description; //操作描述
 	
-	private int result; // 返回结果
+	@Column(name="c_result",length=20)
+	private String result; // 返回结果
 	
+	@Column(name="c_account",length=20)
 	private String account; //操作人员的账号
 	
 	public ChangeBean() {
@@ -73,11 +94,11 @@ public class ChangeBean implements Serializable{
 		this.description = description;
 	}
 
-	public int getResult() {
+	public String getResult() {
 		return result;
 	}
 
-	public void setResult(int result) {
+	public void setResult(String result) {
 		this.result = result;
 	}
 
@@ -89,12 +110,5 @@ public class ChangeBean implements Serializable{
 		this.account = account;
 	}
 
-	@Override
-	public String toString() {
-		return "ChangeBean [id=" + id + ", changeTime=" + changeTime + ", name=" + name + ", type=" + type
-				+ ", description=" + description + ", result=" + result + ", account=" + account + "]";
-	}
 	
-	
-
 }

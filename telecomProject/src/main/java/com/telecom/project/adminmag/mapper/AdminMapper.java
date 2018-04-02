@@ -1,20 +1,46 @@
 package com.telecom.project.adminmag.mapper;
 
+import java.util.List;
 import java.util.Map;
 
-import com.telecom.project.beans.PageBean;
+import org.apache.ibatis.annotations.Param;
 
-/**
- * 书写mybatis注解与sql语句
- * @author 
- *
- */
+import com.telecom.project.beans.AdminBean;
+import com.telecom.project.beans.PageBean;
+import com.telecom.project.beans.RoleBean;
+
 public interface AdminMapper {
 	/**
-	 * 多参数，完成分页查询
-	 * @param page 分页对象
-	 * @param params 参数对象
+	 * 查询所有不分页
 	 * @return
 	 */
-	public PageBean findByParams2PageBean(PageBean page,Map params);
+	public List<AdminBean> findAdminAll();
+	
+	
+
+	public long countByParams2PageBean(@Param("params")Map params);
+	
+	/**
+	 * 根据条件完成分页数据的具体查询
+	 * @param page
+	 * @param params
+	 * @return
+	 */
+	public List<AdminBean> findByParams2PageBean(@Param("params")Map params);
+	
+	
+	/**
+	 * ID查询
+	 * @param id
+	 * @return
+	 */
+	public List<AdminBean> findAdminById(long id);
+	
+	/**
+	 * 角色查管理员
+	 * @param role
+	 * @return
+	 */
+	public List<AdminBean> findAdminByRole(RoleBean role);
+
 }

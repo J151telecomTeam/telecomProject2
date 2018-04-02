@@ -1,5 +1,6 @@
 package com.telecom.project.rolemag.queryroledao;
 
+import java.util.List;
 import java.util.Map;
 
 import com.telecom.project.beans.AdminBean;
@@ -22,11 +23,11 @@ public interface IQueryRoleDao {
 	public PageBean findRoleByConPage(Map map,PageBean page);
 	
 	/**
-	 * 狗管理查角色
+	 * 根据管理名字查角色
 	 * @param user
 	 * @return
 	 */
-	public RoleBean findRoleByUser(AdminBean admin);
+	public List<RoleBean> findRoleByAdmin(String roleName);
 	
 	/**
 	 * ID查角色
@@ -34,4 +35,6 @@ public interface IQueryRoleDao {
 	 * @return
 	 */
 	public RoleBean findRoleById(long id);
+	
+	public List<RoleBean> findAllRole();
 }

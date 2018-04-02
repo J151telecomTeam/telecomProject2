@@ -1,5 +1,6 @@
 package com.telecom.project.rolemag.queryroleservice;
 
+import java.util.List;
 import java.util.Map;
 
 import com.telecom.project.beans.AdminBean;
@@ -35,4 +36,9 @@ public interface IQueryRoleService {
 	 * @return
 	 */
 	public RoleBean findRoleById(long id);
+	/**
+	 * 查询所有角色不分页
+	 * @return
+	 */
+	public List<RoleBean> findAllRole();
 }

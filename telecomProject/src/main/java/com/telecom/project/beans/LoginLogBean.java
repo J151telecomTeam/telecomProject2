@@ -3,26 +3,45 @@ package com.telecom.project.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * 登陆日志bean
  * @author 
  *
  */
+@Entity
+@Table(name="t_loginlog")
 public class LoginLogBean implements Serializable{
 
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = -1186962988776088911L;
 	
+	@Id
+	@Column(name="l_id")
+	@GenericGenerator(name= "hibernate.id",strategy="identity")
+	@GeneratedValue(generator="hibernate.id")
 	private long id; //主键
 	
+	@Column(name="l_login_time")
 	private Date loginTime; // 登陆时间
 	
+	@Column(name="l_out_time")
 	private Date outTime; //退出时间
 	
+	@Column(name="l_name")
 	private String name; //管理员名称
 	
+	@Column(name="l_login_ip",length=20)
 	private String loginIp; //用户登陆时的ip地址
 	
 	public LoginLogBean() {

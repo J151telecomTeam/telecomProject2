@@ -1,7 +1,11 @@
-package com.telecom.project.adminmag.operationServerService;
+package com.telecom.project.adminmag.operationservice;
 
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.telecom.project.beans.AdminBean;
 import com.telecom.project.beans.ServerBean;
@@ -11,6 +15,7 @@ import com.telecom.project.beans.ServerBean;
  * @author 
  *
  */
+@Service
 public interface IOperationAdminService {
 	/**
 	 * 新增管理员
@@ -35,5 +40,15 @@ public interface IOperationAdminService {
 	 * @param admins
 	 */
 	public void deleteBatchAdminBean(List<AdminBean> admins);
+	
+	/**
+	 * 分页查询管理员
+	 * @param pageable
+	 * @return
+	 */
+	public Page<AdminBean> findAdminBeanByPage(Pageable pageable);
+	
+	
+	public void deleteAdminBeanByBean(AdminBean bean);
 	
 }

@@ -3,6 +3,8 @@ package com.telecom.project.adminmag.queryServerService;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 import com.telecom.project.beans.AdminBean;
 import com.telecom.project.beans.PageBean;
 import com.telecom.project.beans.RoleBean;
@@ -12,14 +14,10 @@ import com.telecom.project.beans.RoleBean;
  * @author 
  *
  */
+
 public interface IQueryAdminService {
 	
-	/**
-	 * 查询所有
-	 * @param page
-	 * @return
-	 */
-	public PageBean findAllAdminPage(PageBean page);
+
 	
 	/**
 	 * 多参数，完成分页查询
@@ -34,7 +32,7 @@ public interface IQueryAdminService {
 	 * @param id
 	 * @return
 	 */
-	public AdminBean findAdminById(long id);
+	public List<AdminBean> findAdminById(long id);
 	
 	/**
 	 * 角色查管理员
@@ -42,5 +40,11 @@ public interface IQueryAdminService {
 	 * @return
 	 */
 	public List<AdminBean> findAdminByRole(RoleBean role);
+	
+	/**
+	 * 查询所有不分页
+	 * @return
+	 */
+	public List<AdminBean> findAdminAll();
 	
 }
