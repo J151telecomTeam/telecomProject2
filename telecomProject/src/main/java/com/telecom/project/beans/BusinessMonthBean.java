@@ -2,6 +2,7 @@ package com.telecom.project.beans;
 
 import java.io.Serializable;
 
+
 /**
  * 月业务账单bean
  * @author 
@@ -24,10 +25,23 @@ public class BusinessMonthBean implements Serializable{
 	
 	private double price; //月费用
 	
-	private DealBean daal; //资费bean
+	private DealBean deal; //资费bean
+	
+	
+	private String zwAccount; // 账务账号
 	
 	public BusinessMonthBean() {
 		// TODO Auto-generated constructor stub
+	}
+
+	
+	
+	public String getZwAccount() {
+		return zwAccount;
+	}
+
+	public void setZwAccount(String zwAccount) {
+		this.zwAccount = zwAccount;
 	}
 
 	public long getId() {
@@ -70,18 +84,23 @@ public class BusinessMonthBean implements Serializable{
 		this.price = price;
 	}
 
-	public DealBean getDaal() {
-		return daal;
+	
+	public DealBean getDeal() {
+		return deal;
 	}
 
-	public void setDaal(DealBean daal) {
-		this.daal = daal;
+
+
+	public void setDeal(DealBean deal) {
+		this.deal = deal;
 	}
+
+
 
 	@Override
 	public String toString() {
 		return "BusinessMonthBean [id=" + id + ", osAccount=" + osAccount + ", ip=" + ip + ", runTime=" + runTime
-				+ ", price=" + price + ", daal=" + daal + "]";
+				+ ", price=" + price + ", deal=" + deal + ", zwAccount=" + zwAccount + "]";
 	}
 	
 	

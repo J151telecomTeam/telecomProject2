@@ -23,9 +23,9 @@ public class AccountingMonthBean implements Serializable{
 	
 	private String ip; //服务器ip
 	
-	private Date year; //年份
+	private String year; //年份
 	
-	private Date month; //月份
+	private String month; //月份
 	
 	private String zwAccount; //账务账号
 	
@@ -65,19 +65,21 @@ public class AccountingMonthBean implements Serializable{
 		this.ip = ip;
 	}
 
-	public Date getYear() {
+	
+
+	public String getYear() {
 		return year;
 	}
 
-	public void setYear(Date year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 
-	public Date getMonth() {
+	public String getMonth() {
 		return month;
 	}
 
-	public void setMonth(Date month) {
+	public void setMonth(String month) {
 		this.month = month;
 	}
 

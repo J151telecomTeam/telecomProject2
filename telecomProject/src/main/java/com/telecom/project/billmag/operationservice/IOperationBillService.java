@@ -1,4 +1,4 @@
-package com.telecom.project.billmag.operationServerService;
+package com.telecom.project.billmag.operationservice;
 
 
 
@@ -9,14 +9,20 @@ import com.telecom.project.beans.BillMonthBean;
  * @author 
  *
  */
+
 public interface IOperationBillService {
 	
+	/**
+	 * 新增账单
+	 * @param bill
+	 */
+	public void saveBillBean(BillMonthBean bill);
 	
 	/**
 	 * 修改账单
 	 * @param server
 	 */
-	public void updateAdminBeanBean(BillMonthBean billMonth);
+	public void updateBillBean(BillMonthBean bill);
 	
 	
 	

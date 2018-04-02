@@ -26,11 +26,10 @@
 <body class="easyui-layout">
 <div data-options="region:'center'">
 	<div id="tb">
-	账务账号：<input class="easyui-textbox" style="width:155px;height:22px" id="##" /> 
-         真实姓名：<input class="easyui-textbox" style="width:155px;height:22px" id="##" /> 
-         年份：<input class="easyui-textbox" style="width:155px;height:22px" id="##" />   
-          月份：<select id="cc" class="easyui-combobox" name="dept" style="width:80px;">  
-    <option value="aa">全部</option>  
+	账务账号：<input class="easyui-textbox" style="width:155px;height:22px" id="zwAccount" /> 
+         年份：<input class="easyui-textbox" style="width:155px;height:22px" id="year" />   
+          月份：<select id="month" class="easyui-combobox" name="dept" style="width:80px;">  
+    <option>全部</option>  
     <option>1月</option>  
     <option>2月</option>  
     <option>3月</option>  
@@ -46,38 +45,26 @@
 </select>    	
 	<a id="query" href="javascript:void(0)" class="easyui-linkbutton" 
     		data-options="iconCls:'icon-search'">查询</a>	
-    <a id="esc" href="javascript:void(0)" class="easyui-linkbutton" 
-    		data-options="iconCls:'icon-undo'">返回</a>				
 	</div>
 	<table id="tt" class="easyui-datagrid"
            style="width: auto; height: 100%"
            data-options="fitColumns:true,method:'GET',idField:'id',striped:true,singleSelect:false,toolbar:'#tb',pagination:true">     
     <thead>
        	<tr>
-         
+         	<th data-options="field:'ck',checkbox:true"></th>
             <th
-                    data-options="field:'1',width:100,align:'center',sortable:true">客户名称</th>
+                    data-options="field:'zwAccount',width:100,align:'center',sortable:true">账务账号</th>
             <th
-                    data-options="field:'2',width:100,align:'center',sortable:true">联系电话</th>
+                    data-options="field:'osAccount',width:100,align:'center',sortable:true">OS账号</th>
             <th
-                    data-options="field:'3',width:100,align:'center',sortable:true">缴费金额</th>
+                    data-options="field:'ip',width:100,align:'center',sortable:true">服务器IP</th>
             <th
-                    data-options="field:'4',width:100,align:'center',sortable:true">本年总使用时长</th>
+                    data-options="field:'year',width:100,align:'center',sortable:true">年份</th>
            <th
-                    data-options="field:'5',width:100,align:'center',sortable:true">年</th>
+                    data-options="field:'runTime',width:100,align:'center',sortable:true">年使用时长</th>
            </tr>
            
        	</thead>
-       	 <tbody>
-          <tr>
-    
-      <td>大军</td>
-      <td>12321312313</td>
-      <td>520.00</td>
-      <td>30000</td>      
-      <td>2018</td>         
-      </tr>
-        </tbody>
        	</table>
        	
        	

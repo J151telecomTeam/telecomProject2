@@ -14,34 +14,27 @@ import com.telecom.project.beans.PageBean;
  *
  */
 public interface IQueryAccountingService {
+	
+	/**
+	 * 根据年、月和账务账号查询当月所有的日账务对象(第二次双击调用)
+	 * @return
+	 */
+	public PageBean findByYearAndMonthAndZwAccount(PageBean page,Map params);
 
 	/**
-	 * 多参数，完成分页查询
-	 * @param page 分页对象
-	 * @param params 参数对象
+	 * 根据条件查询账务年表或者账务月表(搜索调用)
+	 * @param page
+	 * @param params
 	 * @return
 	 */
-	public PageBean findByParams2PageBean(PageBean page,Map params);
+	public PageBean findByAccountingYearOrMonth(PageBean page,Map params);
 	
 	/**
-	 * 按年查询服务器使用情况
-	 * @param year
+	 * 根据年份和账务账号查询用户该年所有的月账务信息(第一次双击调用)
+	 * @param page
+	 * @param params
 	 * @return
 	 */
-	public AccountingYearBean findByYear(String year);
-	
-	/**
-	 * 按月查询服务器使用情况
-	 * @param month
-	 * @return
-	 */
-	public AccountingMonthBean findByMonth(String month);
-	
-	/**
-	 * 按天查询服务器使用情况
-	 * @param day
-	 * @return
-	 */
-	public AccountingDayBean findByDay(Date day);
+	public PageBean findByYearAndZwAccountForMonth(PageBean page,Map params);
 	
 }
