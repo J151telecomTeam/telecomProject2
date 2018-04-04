@@ -50,7 +50,6 @@ public class RoleBean implements Serializable{
 	private String describe; //角色描述
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="role")
-	@Cascade(value= {CascadeType.ALL})
 	private List<AdminBean>  list;
 	
 	public RoleBean() {

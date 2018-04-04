@@ -48,7 +48,7 @@ public interface ServerMapper {
 	 * @return
 	 */
 	@ResultMap(value = "serverMap")
-	@Select(value = { "select s_name from t_service where s_maintain = '正常'" })
+	@Select(value = { "select s_id,s_name from t_service where s_maintain = '正常'" })
 	public List<ServerBean> findAllServer();
 
 	/**

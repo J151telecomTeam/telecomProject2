@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.telecom.project.accountingmag.mapper.AccountingMapper">
+
+	<resultMap type="com.telecom.project.beans.AccountingYearBean" id="yearMap">
+		<id property="id" column="a_id" javaType="long"/>
+		<result property="runTime" column="a_run_time" javaType="long"/>
+		<result property="osAccount" column="a_os_account" javaType="string"/>
+		<result property="ip" column="a_ip" javaType="string"/>
+		<result property="year" column="a_year" javaType="string"/>
+		<result property="zwAccount" column="a_zw_account" javaType="string"/>
+	</resultMap>
+	
+	<resultMap type="com.telecom.project.beans.AccountingMonthBean" id="monthMap">
+		<id property="id" column="a_id" javaType="long"/>
+		<result property="runTime" column="a_run_time" javaType="long"/>
+		<result property="osAccount" column="a_os_account" javaType="string"/>
+		<result property="ip" column="a_ip" javaType="string"/>
+		<result property="year" column="a_year" javaType="string"/>
+		<result property="month" column="a_month" javaType="string"/>
+		<result property="zwAccount" column="a_zw_account" javaType="string"/>
+	</resultMap>
+	
+	<resultMap type="com.telecom.project.beans.AccountingDayBean" id="dayMap">
+		<id property="id" column="a_id" javaType="long"/>
+		<result property="runTime" column="a_run_time" javaType="long"/>
+		<result property="osAccount" column="a_os_account" javaType="string"/>
+		<result property="ip" column="a_ip" javaType="string"/>
+		<result property="year" column="a_year" javaType="string"/>
+		<result property="month" column="a_month" javaType="string"/>
+		<result property="day" column="a_day" javaType="date"/>
+		<result property="zwAccount" column="a_zw_account" javaType="string"/>
+	</resultMap>
+	
+	<sql id="yearSql">
+		<where>
+			<if test="zwAccount != null">
+				and a_zw_account like concat(#{zwAccount},'%')
+			</if>
+			<if test="year != null">
+				and a_year like concat(#{year},'%')
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="monthSql">
+		<where>
+			<if test="zwAccount != null">
+				and a_zw_account like concat(#{zwAccount},'%')
+			</if>
+			<if test="year != null">
+				and a_year like concat(#{year},'%')
+			</if>
+			<if test="month != null">
+				and a_month like concat(#{month},'%')
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="daySql">
+		<where>
+			<if test="zwAccount != null">
+				and a_zw_account = #{zwAccount}
+			</if>
+			<if test="year != null">
+				and a_year = #{year}
+			</if>
+			<if test="month != null">
+				and a_month = #{month}
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="monthSql1">
+		<where>
+			<if test="zwAccount != null">
+				and a_zw_account = #{zwAccount}
+			</if>
+			<if test="year != null">
+				and a_year like concat(#{year},'%')
+			</if>
+		</where>
+	</sql>
+	
+	<select id="findByYearAndMonthAndZwAccount" resultMap="dayMap">
+		select * from t_accounting_day
+		<include refid="daySql"></include>
+		limit #{index},#{rows}
+	</select>
+	
+	<select id="countByYearAndMonthAndZwAccount" resultType="int">
+		select count(a_id) from t_accounting_day
+		<include refid="monthSql"></include>
+	</select>
+	
+	<select id="findByYearAndZwAccountForMonth" resultMap="monthMap">
+		select * from t_accounting_month
+		<include refid="monthSql1"></include>
+		limit #{index},#{rows}
+	</select>
+	
+	<select id="countByYearAndZwAccountForMonth" resultType="int">
+		select count(a_id) from t_accounting_month
+		<include refid="monthSql1"></include>
+	</select>
+	
+	<select id="findByMonthPage" resultMap="monthMap">
+		select * from t_accounting_month
+		<include refid="monthSql"></include>
+		limit #{index},#{rows}
+	</select>
+	
+	<select id="countByMonth" resultType="int">
+		select count(a_id) from t_accounting_month
+		<include refid="monthSql"></include>
+	</select>
+	
+	<select id="findByYearPage" resultMap="yearMap">
+		select * from t_accounting_year
+		<include refid="yearSql"></include>
+		limit #{index},#{rows}
+	</select>
+
+	<select id="countByYear" resultType="int">
+		select count(a_id) from t_accounting_year
+		<include refid="yearSql"></include>
+	</select>
+
+</mapper>

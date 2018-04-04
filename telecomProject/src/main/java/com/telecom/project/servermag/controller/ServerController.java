@@ -45,6 +45,8 @@ public class ServerController {
 		Map map = new HashMap();
 		log.info(page);
 		try {
+			Long index = (page.getPage()-1)*page.getRows();
+			page.setIndex(index);
 			page = queryServerServiceImpl.findAllServerPage(page);
 			map.put("total", page.getTotalRows());
 			map.put("rows", page.getDatas());
@@ -110,6 +112,8 @@ public class ServerController {
 		map.put("state", server.getState());
 		log.info(server);
 		try {
+			Long index = (page.getPage()-1)*page.getRows();
+			page.setIndex(index);
 			page = queryServerServiceImpl.findByParams2PageBean(page, map);
 			map2.put("total", page.getTotalRows());
 			map2.put("rows", page.getDatas());

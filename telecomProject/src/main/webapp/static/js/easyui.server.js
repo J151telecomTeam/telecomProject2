@@ -180,6 +180,7 @@ $(function(){
 			   $('#servertt').datagrid('reload',queryParams());
 			}
 		})
+		$('#update_server_dialog').dialog('close');
 	});
 	
 	/**

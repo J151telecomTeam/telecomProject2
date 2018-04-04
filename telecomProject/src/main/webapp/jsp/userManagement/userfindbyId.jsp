@@ -31,15 +31,7 @@
          </td>
          <td>缴费状态:
 		<input id="add_userName" class="easyui-textbox" style="width:150px;height:32px">
-       </td>
-    
-    
-		<td>开始时间:
-		<input id="add_userName" class="easyui-textbox" style="width:150px;height:32px">
-    	</td>
-    	<td>结束时间:
-		<input id="add_userName" class="easyui-textbox" style="width:150px;height:32px">
-   		</td>
+       </td>      		
    		<td>
 		<a id="ok" href="Javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100px;height:32px">查询</a>
        
@@ -54,14 +46,12 @@
            data-options="fitColumns:true,method:'GET',idField:'id',striped:true,singleSelect:false,toolbar:'#tb',pagination:true">
         <thead>
         <tr>
-            <th data-options="field:'ck',checkbox:true"></th>
-            <th data-options="field:'name',width:55,align:'center',sortable:true">服务器</th>
-            <th data-options="field:'ip',width:55,align:'center',sortable:true">开通时间</th>
-             <th data-options="field:'true',width:55,align:'center',sortable:true">资费模式</th>
-             <th data-options="field:'state',width:55,align:'center',sortable:true">运营天数</th>
-             <th data-options="field:'chuzu',width:55,align:'center',sortable:true">服务器状态</th>
-             <th data-options="field:'weihu',width:55,align:'center',sortable:true">缴费状态</th>
-             <th data-options="field:'weihu',width:55,align:'center',sortable:true">总缴费</th>
+             <th data-options="field:'ck',checkbox:true"></th>
+             <th data-options="field:'ServerName',width:55,align:'center',sortable:true">服务器</th>
+             <th data-options="field:'type',width:55,align:'center',sortable:true">资费模式</th>
+             <th data-options="field:'maintain',width:55,align:'center',sortable:true">服务器状态</th>
+             <th data-options="field:'state',width:55,align:'center',sortable:true">缴费状态</th>
+             
         </tr>
         <thead>      	
     </table>

@@ -3,27 +3,48 @@ $(function(){
 	/**
 	 * 默认数据列表的显示
 	 */
-	$('#tt').datagrid({
-		url:"users/page",
+	$('#power_tt').datagrid({
+		url:"power/findAllPage",
 		method:"GET",
 		queryParams:queryParams()
 	});
 	
+function queryParams(){
 	
+		
+		var name = $('#name').val();
+		var founder=$('#founder').val(); 
+
+		
+		
+		var data = {
+				name:name,
+				founder:founder,				
+				
+				};
+		
+		return data;
+	}
 	
+/**
+ * 所有查询功能
+ */
+$('#query').click(function(){
+	$('#power_tt').datagrid('reload',queryParams());
+});
 	/**
 	 * 新增
 	 */
 	$('#add').click(function(){
-		$('#add_users_dialog').dialog('open');
+		$('#add_power_dialog').dialog('open');
 	});
 	
 	
 	
 	
 	$('#delete').click(function(){
-		var rows = $('#tt').datagrid('getSelections')
-		var row = $('#tt').datagrid('getSelected')
+		var rows = $('#power_tt').datagrid('getSelections')
+		var row = $('#power_tt').datagrid('getSelected')
 		var lenth = rows.length;
 		if(lenth == 0){
 			$.messager.show({
@@ -33,10 +54,10 @@ $(function(){
 				showType:'slide'
 			});
 		}else{
-			$.messager.confirm('警告', '要永久删除这条数据吗?(真的很久!)', function(r){
+			$.messager.confirm('警告', '要永久删除这些数据吗?', function(r){
 				if (r){
 					var json = $.toJSON(rows);
-					var url = "users/" + row.id;
+					var url = "power/deleteBatchPowerBean" ;
 					$.ajax({
 						   type: "DELETE",
 						   url: url,
@@ -49,7 +70,7 @@ $(function(){
 									timeout:5000,
 									showType:'slide'
 								});
-							   $('#tt').datagrid('reload',queryParams());
+							   $('#power_tt').datagrid('reload',queryParams());
 						   }
 						});
 				}
@@ -62,12 +83,12 @@ $(function(){
 	 * 修改
 	 */
 	$('#update').click(function(){
-		var rows = $('#tt').datagrid('getSelections');
-		var row = $('#tt').datagrid('getSelected')
+		var rows = $('#power_tt').datagrid('getSelections');
+		var row = $('#power_tt').datagrid('getSelected')
 		if(row){
 			var lenth = rows.length;
 			if(lenth == 1){
-				$('#update_users_dialog').dialog('open');
+				$('#update_power_dialog').dialog('open');
 			}else{
 				$.messager.show({
 					title:'提示',
@@ -89,10 +110,11 @@ $(function(){
 	/**
 	 * 修改保存
 	 */
-	$('#update_users').click(function(){
-		var row = $('#tt').datagrid('getSelected')
-		var url = "users/"+row.id;
-		$('#update_user').form('submit', {   
+	$('#updatepowers').click(function(){
+		var row = $('#power_tt').datagrid('getSelected')
+		var url = "power/updatePowerBean";
+		$('#update_p_power').form('submit', {   
+			type:"POST",
 		    url:url,   
 		    onSubmit: function(){   
 		        // do some check
@@ -102,7 +124,7 @@ $(function(){
 		    success:function(data){ 
 		    	var data = eval('(' + data + ')'); 
 		    	if(data.status){
-		    		$('#update_users_dialog').dialog('close');
+		    		$('#update_power_dialog').dialog('close');
 		    	}
 		    	 $.messager.show({
 						title:'提示',
@@ -111,61 +133,29 @@ $(function(){
 						showType:'slide'
 				});
 		    	 
-				$('#tt').datagrid('reload',queryParams());
+				$('#power_tt').datagrid('reload',queryParams());
 		    }   
 		});  
 	});
 	
 
-	/**
-	 * 查询参数的封装
-	 */
-	function queryParams(){
-		var name = $('#name').val();
-		var login = $('#login').val();
-		var gender = $('#gender').val();
-		var birthday = $('#birthday').val();
-		var createTime = $('#createTime').val();
-		
-		var data = {
-				name:name,
-				login:login,
-				gender:gender,
-				birthday:birthday,
-				createTime:createTime
-				};
-		return data;
-	}
 	
 	/**
 	 * 条件查询功能
 	 */
-	$('#selete').click(function(){
-		$('#find_users_dialog').dialog('open');
-	});
+	
 	
 	/**
 	 * 条件查询
 	 */
-	$('#find_users').click(function(){
-		$('#find_user').form('submit', {
-			type:"POST",
-			url:"users/findUser",
-			onSubmit: function(){   
-		        // do some check
-		        // return false to prevent submit;
-		    	return true;
-		    },   
-		    queryParams:queryParams()
-		})
-	})
+
 	/**
-	 * 添加用户
+	 * 添加权限
 	 */
-	$('#add_users').click(function(){
-		$('#add_user').form('submit', {
+	$('#add_power').click(function(){
+		$('#add_a_power').form('submit', {
 			type:"POST",
-			url:"users/add",
+			url:"power/addPowerBean",
 			onSubmit: function(){   
 		        // do some check
 		        // return false to prevent submit;
@@ -174,7 +164,7 @@ $(function(){
 			success:function(msg){
 				var msg = eval('(' + msg + ')'); 
 		    	if(msg.status){
-		    		$('#add_users_dialog').dialog('close');
+		    		$('#add_power_dialog').dialog('close');
 		    	}
 				$.messager.show({
 					title:'提示',
@@ -182,10 +172,13 @@ $(function(){
 					timeout:5000,
 					showType:'slide'
 				});
-			   $('#tt').datagrid('reload',queryParams());
+			   
 			}
 		})
 	})
+	
+	
+	
 	});
 	
 	

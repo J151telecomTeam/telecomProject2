@@ -21,7 +21,7 @@ import com.telecom.project.beans.Combobox;
 import com.telecom.project.beans.Messager;
 import com.telecom.project.beans.PageBean;
 import com.telecom.project.beans.RoleBean;
-import com.telecom.project.rolemag.queryroleservice.IQueryRoleService;
+import com.telecom.project.rolemag.queryservice.IQueryRoleService;
 
 @RequestMapping("/admins")
 @RestController
@@ -59,6 +59,9 @@ public class adminController {
 			}else {
 				map.put("roleName", roleName);
 			}
+			Long index = (page.getPage()-1)*page.getRows();
+			page.setIndex(index);
+			
 			page = queryAdminService.findByParams2PageBean(page, map);
 			System.out.println(page);
 			map1.put("total", page.getTotalRows());

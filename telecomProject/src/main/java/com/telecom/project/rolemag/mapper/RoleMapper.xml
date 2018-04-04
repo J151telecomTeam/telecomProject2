@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.telecom.project.rolemag.mapper.RoleMapper">
+
+<!-- 在mybatis配置文件中，包装类型，直接可以使用基础数据类型替代，String也可以使用string来替代 -->
+	<resultMap type="PowerBean" id="powerMap">
+		<id property="id" column="p_id" javaType="long" />
+		<result property="name" column="p_name" javaType="string" />
+		<result property="founder" column="p_founder" javaType="string" />
+		<result property="time" column="p_time" javaType="date" />
+		<result property="describe" column="p_describe" javaType="string" />
+		
+		<result property="fatherId" column="p_father_id" javaType="long"/>
+		
+		<result property="state" column="p_state" javaType="int"/>
+		</resultMap>
+		
+	<resultMap type="RoleBean" id="roleMap">
+		<id property="id" column="r_id" javaType="long" />
+		<result property="name" column="r_name" javaType="string" />
+		<result property="founder" column="r_founder" javaType="string" />
+		<result property="createTime" column="r_create_time" javaType="date" />
+		<result property="describe" column="r_describe" javaType="string" />
+		
+		</resultMap>
+		
+	<resultMap type="AdminBean" id="AdminMap">
+		<id property="id" column="a_id" javaType="long" />
+		<result property="name" column="a_name" javaType="string" />
+		<result property="account" column="a_account" javaType="string" />
+		<result property="password" column="a_password" javaType="string" />
+		<result property="tel" column="a_tel" javaType="string" />
+		<result property="mail" column="a_mail" javaType="string" />
+		<association property="role" javaType="RoleBean" resultMap="roleMap"></association>  
+		
+	</resultMap>
+	
+	
+	
+	<sql id="commonSQL">
+		<where>
+			<if test="map1.roleName != null">
+				and r_name like '%${map1.roleName}%'
+			</if>
+			<if test="map1.roleFounder !=null">
+			   and r_founder like '%${map1.roleFounder}%'
+			</if>			
+		</where>
+	</sql>
+	
+	<update id="updatePowerByRole">
+	   update t_role_power set  rp_p_id =#{power.id}
+	   <where>
+	   
+	   rp_r_id=#{role.id}
+	   </where>
+	
+	</update>
+	
+
+	<select id="findRoleByUser" resultMap="roleMap">
+		SELECT r.r_id,r.r_name,r.r_founder,r.r_create_time,r.r_describe FROM t_role AS r,t_admin AS a 
+		<where>
+		r.r_id =#{admin.id}
+		</where> 
+	
+	</select>
+    
+    <select id="findAllpower" resultMap="powerMap">
+    
+        SELECT * FROM t_power  GROUP BY p_name
+    </select>
+
+	<select id="findRoleById" resultMap="roleMap">
+		select * from t_role where r_id = #{id}
+	</select>
+
+	<select id="countByParams2PageBean" resultType="long">
+		select count(r_id) from t_role
+		<include refid="commonSQL"></include>
+	</select>
+
+	<select id="findByParams2PageBean" resultMap="roleMap">
+		select r_id,r_name,r_founder,r_create_time,r_describe  from t_role
+			 
+		<include refid="commonSQL"></include>
+		limit #{map1.index},#{map1.rows}
+	</select>
+
+</mapper>

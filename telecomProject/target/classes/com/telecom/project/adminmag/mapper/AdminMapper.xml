@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+ 
+
+<mapper namespace="com.telecom.project.adminmag.mapper.AdminMapper">
+	<!-- 角色封装 -->
+	<resultMap type="RoleBean" id="roleMap">
+		<id property="id" column="r_id" javaType="long" />
+		<result property="name" column="r_name" javaType="string" />
+		<result property="founder" column="r_founder" javaType="string" />
+		<result property="createTime" column="r_create_time" javaType="date" />
+		<result property="describe" column="r_describe" javaType="string" />
+	</resultMap>  
+	 <!-- 管理员封装 -->
+	<resultMap type="AdminBean" id="adminMap">
+		<id property="id" column="a_id" javaType="long"/>
+		<result property="name" column="a_name" javaType="string" />
+		<result property="account" column="a_account" javaType="string" />
+		<result property="password" column="a_password" javaType="string" />
+		<result property="tel" column="a_tel" javaType="string" />
+		<result property="mail" column="a_mail" javaType="string"/>
+		<association property="role" javaType="RoleBean" resultMap="roleMap"></association>
+	</resultMap>
+
+	
+		<sql id="commonSQL">
+		<where>
+			<if test="params.name != null">
+				and a_name like CONCAT(#{params.name},'%')
+			</if>
+			<if test="params.tel != null">
+				and a_tel like CONCAT(#{params.tel},'%')
+			</if>
+			<if test="params.mail != null">
+				and a_mail like CONCAT(#{params.mail},'%')
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 管理员与角色链表查询 -->
+	<select id="findAdminAll" resultMap="adminMap">
+		SELECT	a_id,a.a_name,a.a_account,a.a_password,a.a_tel,a.a_mail,r.r_id,r.r_name FROM t_role AS r ,t_admin AS a 
+		
+	</select>
+	
+	
+	<select id="countByParams2PageBean" resultType="long">
+		select count(a_id) from t_admin
+		<include refid="commonSQL"></include>
+	</select>
+	
+		<select id="findByParams2PageBean" resultMap="adminMap">
+		SELECT	a.a_id,a.a_name,a.a_account,a.a_password,a.a_tel,a.a_mail,r.r_id,r.r_name FROM t_role AS r ,t_admin AS a
+	<!-- 	<where>
+		 r.`r_id`=a.`a_r_id`
+		</where> -->
+		<where>
+			 
+		 	<if test="params.name != null">
+				and a_name like CONCAT(#{params.name},'%')
+			</if>
+			<if test="params.roleName != null">
+				and a_r_id like CONCAT(#{params.roleName},'%')
+			</if>
+				and r.`r_id`=a.`a_r_id`
+		</where>
+		
+		limit #{params.index},#{params.rows}
+		
+		
+		
+	</select>
+	
+	<select id="findAdminById" resultMap="adminMap">
+		SELECT	a_id,a.a_name,a.a_account,a.a_password,a.a_tel,a.a_mail,r.r_id,r.r_name FROM t_role AS r ,t_admin AS a
+		<where>
+			a_id=#{id}
+		</where>
+	
+	</select>
+	
+	<select id="findAdminByRole" resultMap="adminMap">
+		SELECT r.r_id,r.r_name,r.r_founder,r.r_create_time,r.r_describe FROM t_role AS r,t_admin AS a
+		<where>
+			a.a_r_id=#{id}
+		</where>
+	</select>
+	
+	
+ <!--  	<select id="findRoleByid" resultType="roleMap">
+		select * from t_role where id =#{id}
+</select>   -->
+
+
+
+
+</mapper>

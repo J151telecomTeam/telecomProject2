@@ -71,7 +71,7 @@ public class UserBean implements Serializable{
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="user")
 	@Cascade(value= {CascadeType.ALL})
-	private List<BusinessAccountBean> businessaccount;
+	private List<BusinessAccountBean> businessaccount;//业务对象
 	
 	
 	public UserBean() {

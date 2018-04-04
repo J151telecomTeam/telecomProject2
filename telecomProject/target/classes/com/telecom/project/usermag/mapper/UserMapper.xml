@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.telecom.project.usermag.mapper.UserMapper">
+<resultMap type="UserBean" id="userMap">
+		<id property="id" column="u_id" javaType="long" />
+		<result property="name" column="u_name" javaType="string" />
+		<result property="gender" column="u_gender" javaType="string" />
+		<result property="indentity" column="u_indentity" javaType="string" />
+		<result property="password" column="u_password" javaType="string" />
+		<result property="phone" column="u_phone" javaType="string" />
+		<result property="address" column="u_address" javaType="string" />
+		<result property="postcode" column="u_postcode" javaType="string" />
+		<result property="qq" column="u_qq" javaType="string" />
+		<result property="account" column="u_account" javaType="string" />
+		<result property="picture" column="u_picture" javaType="string" />
+		<result property="status" column="u_status" javaType="string" />
+		
+	</resultMap>
+	
+	
+	<sql id="commonSQL">
+		<where>
+		<if test="params.indentity != null">
+				and u_name like CONCAT(#{params.name},'%')
+			</if>
+			<if test="params.indentity != null">
+				and u_indentity like CONCAT(#{params.indentity},'%')
+			</if>
+			<if test="params.address != null">
+				and u_address like CONCAT(#{params.address},'%')
+			</if>
+			<if test="params.status != null">
+				and u_status like CONCAT(#{params.status},'%')
+			</if>
+		</where>
+	</sql>
+	
+	<select id="countByParams2PageBean" resultType="long">
+		select count(u_id) from t_user
+		<include refid="commonSQL"></include>
+	</select>
+
+	<select id="findByParams2PageBean" resultMap="userMap">
+		select * from t_user
+		<include refid="commonSQL"></include>
+		limit #{params.index},#{params.rows}
+	</select>
+	
+
+	
+	
+	</mapper>

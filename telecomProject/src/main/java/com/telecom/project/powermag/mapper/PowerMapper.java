@@ -2,6 +2,10 @@ package com.telecom.project.powermag.mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+
 
 import com.telecom.project.beans.PageBean;
 import com.telecom.project.beans.PowerBean;
@@ -9,32 +13,34 @@ import com.telecom.project.beans.RoleBean;
 
 public interface PowerMapper {
 	/**
-	 * 查找所有权限
-	 * @param page
+	 * 根据条件完成分页统计
+	 * 
+	 * @param params
 	 * @return
 	 */
-	public List<PowerBean> findAllPowerPage(PageBean page);
+	public long countByParams2PageBean(@Param("map1")Map map);
+
 	/**
-	 * 查询权限+条件
-	 * @param name
-	 * @param founder
-	 * @param onDate
-	 * @param endDate
+	 * 根据条件完成分页数据的具体查询
+	 * 
+	 * @param page
+	 * @param params
 	 * @return
 	 */
-	public List<PowerBean> findPowerByConPage(String name,String founder,Date onDate,Date endDate);
+	public List<PowerBean> findByParams2PageBean(@Param("map1")Map map);
+
 
 	/**
 	 * 角色查权限
 	 * @param role
 	 * @return
 	 */
-	public List<PowerBean> findPowerByRole(RoleBean role);
+	public List<PowerBean> findPowerByRole(@Param("role")RoleBean role);
 	
 	/**
 	 * 查权限用ID
 	 * @param id
 	 * @return
 	 */
-	public PowerBean findPowerById(int id);
+	public PowerBean findPowerById(@Param("id")long id);
 }

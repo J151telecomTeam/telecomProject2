@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.telecom.project.billmag.mapper.BillMapper">
+	
+	<resultMap type="com.telecom.project.beans.BillMonthBean" id="billMonthMap">
+		<id property="id" column="b_id" javaType="long"/>
+		<result property="idCard" column="b_idcard" javaType="string"/>
+		<result property="zwAccount" column="b_zw_account" javaType="string"/>
+		<result property="price" column="b_price" javaType="double"/>
+		<result property="date" column="b_date" javaType="string"/>
+		<result property="payWay" column="b_payway" javaType="string"/>
+		<result property="state" column="b_state" javaType="int"/>
+	</resultMap>
+	
+	<resultMap type="com.telecom.project.beans.BusinessMonthBean" id="businessMap">
+		<id property="id" column="s_id" javaType="long"/>
+		<result property="osAccount" column="s_os_account" javaType="string"/>
+		<result property="ip" column="s_ip" javaType="string"/>
+		<result property="runTime" column="s_run_time" javaType="long"/>
+		<result property="price" column="s_price" javaType="double"/>
+		<result property="zwAccount" column="s_zw_account" javaType="string"/>
+		<association property="deal" column="s_d_id" select="findByDealId" fetchType="eager"></association>
+	</resultMap>
+	
+	<resultMap type="com.telecom.project.beans.DealBean" id="dealMap">
+		<id property="id" column="d_id" javaType="long"/>
+		<result property="name" column="d_name" javaType="string"/>
+		<result property="type" column="d_type" javaType="int"/>
+		<result property="duration" column="d_duration" javaType="int"/>
+		<result property="cost" column="d_cost" javaType="double"/>
+		<result property="money" column="d_money" javaType="double"/>
+		<result property="msg" column="d_msg" javaType="string"/>
+	</resultMap>
+	
+	<resultMap type="com.telecom.project.beans.ServerUseMoneyBean" id="serverUseMoneyMap">
+		<id property="id" column="s_id" javaType="long"/>
+		<result property="ip" column="s_ip" javaType="string"/>
+		<result property="osAccount" column="s_os_account" javaType="string"/>
+		<result property="loginTime" column="s_login_time" javaType="date"/>
+		<result property="exitTime" column="s_exit_time" javaType="date"/>
+		<result property="runTime" column="s_run_time" javaType="long"/>
+		<result property="price" column="s_price" javaType="double"/>
+		<association property="deal" column="s_d_id" select="findByDealId" fetchType="eager"></association>
+	</resultMap>
+	
+	<sql id="billSql">
+		<where>
+			<if test="params.zwAccount != null">
+				and b_zw_account LIKE CONCAT(#{params.zwAccount},'%')
+			</if>
+			<if test="params.idCard != null">
+				and b_idcard LIKE CONCAT(#{params.idCard},'%')
+			</if>
+			<if test="params.date != null">
+				and b_date LIKE CONCAT(#{params.date},'%') 
+			</if>
+		</where>
+	</sql>
+	
+	<select id="findByServerUseMoney" resultMap="serverUseMoneyMap">
+		SELECT * FROM t_server_use_money WHERE s_os_account = #{osAccount}
+	</select>
+	
+	<select id="findByDealId" resultMap="dealMap">
+		SELECT * FROM t_deal WHERE d_id = #{id}
+	</select>
+	
+	<select id="findAllBusinessMonth" resultMap="businessMap">
+		SELECT * FROM t_service_month WHERE s_zw_account = #{zwAccount}
+	</select>
+	
+	<select id="countByServiceMonth" resultType="int">
+		SELECT COUNT(s_id) FROM t_service_month WHERE s_zw_account = #{zwAccount}
+	</select>
+	
+	<select id="findAllBillMonth" resultMap="billMonthMap">
+		SELECT * FROM t_bill_month limit #{index},#{rows}
+	</select>
+	
+	<select id="countByBillMonth" resultType="int">
+		SELECT COUNT(b_id) FROM t_bill_month 
+		<include refid="billSql"></include>
+	</select>
+	
+	<select id="findByPageAndParams" resultMap="billMonthMap">
+		select * from t_bill_month
+		<include refid="billSql"></include>
+		limit #{params.index},#{params.rows}
+	</select>
+	
+	<select id="findById" resultMap="billMonthMap">
+		select * from t_bill_month where b_id = #{id}
+	</select>
+
+</mapper>
