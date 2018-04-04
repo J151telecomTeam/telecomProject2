@@ -38,7 +38,8 @@ public class RoleController {
 		
 		Map map = new HashMap();
 		Map map1 = new HashMap();
-		
+		map1.put("Name", bean.getName());
+		map1.put("Founder", bean.getFounder());
 		
 		try {
 			Long index = (page.getPage()-1)*page.getRows();

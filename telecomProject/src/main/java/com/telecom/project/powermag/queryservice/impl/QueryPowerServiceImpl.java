@@ -43,6 +43,12 @@ public class QueryPowerServiceImpl implements IQueryPowerService {
 	@Override
 	public PageBean findByParams2PageBean(PageBean page, Map map) {
 		// TODO Auto-generated method stub
+		if(map.get("Name").equals("")) {
+			map.put("Name", null);
+		}
+		if(map.get("Founder").equals("")) {
+			map.put("Founder", null);
+		}
 		long totalRows =QueryPowerDaoImpl.countByParams2PageBean(map);
 		List<?> datas =QueryPowerDaoImpl.findByParams2PageBean(page, map); 
 		page.setTotalPage(totalRows);

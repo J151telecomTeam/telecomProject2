@@ -25,6 +25,14 @@ $(function(){
 	}
 	
 	
+	
+	/**
+	 * 所有查询功能
+	 */
+	$('#query').click(function(){
+		$('#rolett').datagrid('reload',queryParams());
+	});
+	
 	/**
 	 * 新增
 	 */

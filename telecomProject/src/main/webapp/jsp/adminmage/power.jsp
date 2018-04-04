@@ -102,7 +102,6 @@
 		collapsible:true,minimizable:true,maximizable:true,resizable:true,closable:true,closed:true">
 
 		<form id="update_p_power" method="post">
-			
 			<table style="margin: 0 auto;padding-top: 10px">
 				<tr>
 					<td>权限名：</td>

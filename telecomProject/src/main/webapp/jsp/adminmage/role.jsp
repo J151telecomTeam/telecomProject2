@@ -39,24 +39,29 @@
 			data-options="iconCls:'icon-reload',plain:true">修改角色</a> <a
 			id="delete" href="javascript:void(0)" class="easyui-linkbutton"
 			data-options="iconCls:'icon-remove',plain:true">删除角色</a>
-	
+		<td>角色名: <input id="rname" class="easyui-textbox"
+			style="width: 150px; height: 32px">
+		</td>
+		<td>创建人: <input id="rfounder" class="easyui-textbox"
+			style="width: 150px; height: 32px">
+		</td>
 		</td> <a id='query' href="javascript:void(0)" class="easyui-linkbutton"
 			data-options="iconCls:'icon-search',plain:true">查询</a>
 	</div>
-	
 
-		<table id="rolett" class="easyui-datagrid"
-			style="width: auto; height: 100%"
-			data-options="fitColumns:true,method:'GET',idField:'id',striped:true,singleSelect:false,toolbar:'#tb',pagination:true">
-			<thead>
-				<tr>
-					<th data-options="field:'ck',checkbox:true"></th>
-					<th
-						data-options="field:'name',width:50,align:'center',sortable:true">角色</th>
-					<th
-						data-options="field:'founder',width:50,align:'center',sortable:true">创建人</th>
-					<th
-						data-options="field:'createTime',width:100,align:'center',sortable:true,
+
+	<table id="rolett" class="easyui-datagrid"
+		style="width: auto; height: 100%"
+		data-options="fitColumns:true,method:'GET',idField:'id',striped:true,singleSelect:false,toolbar:'#tb',pagination:true">
+		<thead>
+			<tr>
+				<th data-options="field:'ck',checkbox:true"></th>
+				<th
+					data-options="field:'name',width:50,align:'center',sortable:true">角色</th>
+				<th
+					data-options="field:'founder',width:50,align:'center',sortable:true">创建人</th>
+				<th
+					data-options="field:'createTime',width:100,align:'center',sortable:true,
 							formatter: function(value,row,index){
 									var text = ''; 
 									if(value != ''){
@@ -66,15 +71,15 @@
 										return text;
 								}">创建日期</th>
 
-					<th
-						data-options="field:'describe',width:100,align:'center',sortable:true">描述</th>
+				<th
+					data-options="field:'describe',width:100,align:'center',sortable:true">描述</th>
 
 
-				</tr>
+			</tr>
 
-			</thead>
-		</table>
-	
+		</thead>
+	</table>
+
 
 
 
@@ -91,9 +96,7 @@
 				<td><input class="easyui-validatebox" type="text" id="name"
 					name="name" data-options="required:false" /></td>
 			</tr>
-			<br />
-			
-			<br /> <br />
+			<br /> <br /> <br />
 			<td>描述：</td>
 			<td><input class="easyui-validatebox" required="required"
 				type="text" id="describe" name="describe"
@@ -119,7 +122,7 @@
 
 			<table style="margin: 0 auto; padding-top: 10px">
 				<tr>
-				   <input type="hidden" name="id" id="r_id" />
+					<input type="hidden" name="id" id="r_id" />
 					<td>权限名：</td>
 					<td><input class="easyui-textbox" type="text" id="r_name"
 						name="name" style="width: 150px; height: 32px" /></td>
@@ -130,18 +133,19 @@
 						name="describe" style="width: 150px; height: 32px" /></td>
 				</tr>
 				<tr>
-                    <td>权限：</td>
-                    <td>
-                    <input id="powerAll" class="easyui-combobox" name="powerAll"  
-                        data-options="valueField:'id',textField:'text',url:'Role/findAllPowerName',method:'GET'" />  
-                    
-                  <!--   <input id="powerAll" name="powerAll" class="easyui-combobox" data-options="width:150px,valueid:'id' textField:'text', url:'Role/findAllPowerName',method:'GET'"/> -->
-                    </td>
-                </tr>
-				
+					<td>权限：</td>
+					<td><input id="powerAll" class="easyui-combobox"
+						name="powerAll"
+						data-options="valueField:'id',textField:'text',url:'Role/findAllPowerName',method:'GET'" />
+
+						<!--   <input id="powerAll" name="powerAll" class="easyui-combobox" data-options="width:150px,valueid:'id' textField:'text', url:'Role/findAllPowerName',method:'GET'"/> -->
+					</td>
+				</tr>
+
 			</table>
 		</form>
-		<div style="position: absolute; width: 205px; margin: 0 auto; padding-top: 15px">
+		<div
+			style="position: absolute; width: 205px; margin: 0 auto; padding-top: 15px">
 			<a id="updatepowers" href="Javascript:void(0)"
 				class="easyui-linkbutton" iconCls="icon-ok"
 				style="width: 100px; height: 32px">确定</a> <a id="not"

@@ -1,18 +1,17 @@
 package com.telecom.project.powermag.controller;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.telecom.project.beans.Messager;
 import com.telecom.project.beans.PageBean;
@@ -41,7 +40,8 @@ public class PowerController {
 		map1.put("Name", bean.getName());
 		map1.put("Founder", bean.getFounder());
 		try {
-		
+		Long index = (page.getPage()-1)*page.getRows();
+		page.setIndex(index);
 		page=IQueryPowerServiceimpl.findByParams2PageBean(page, map1);
 		map.put("total", page.getTotalPage());
 		map.put("rows", page.getDatas());
@@ -91,6 +91,9 @@ public class PowerController {
 		Messager msg = new Messager(true, "操作成功！");
 		
 		try {
+			Date date = new Date();
+			bean.setTime(date);
+			bean.setFounder("a");
 			IOperationPowerServiceimpl.savePower(bean);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -118,7 +121,7 @@ public class PowerController {
 	}
 	
 	
-	@RequestMapping(value = "/updatePowerBean", method = { RequestMethod.POST }, produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "/updatePowerBean/{id}", method = { RequestMethod.POST }, produces = { "application/json;charset=utf-8" })
 	public Messager updatePowerBean(PowerBean bean) {
 		log.info(bean);
 		Messager msg = new Messager(true, "操作成功！");

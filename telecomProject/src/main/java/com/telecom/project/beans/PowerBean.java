@@ -44,20 +44,8 @@ public class PowerBean implements Serializable{
 	@Column(name="p_describe")
 	private String describe; //权限描述
 	
-	@Column(name="p_father_id")
-	private long fatherId; //父节点
 	
-	@Column(name="p_state")
-	private int state;//是否被删除
 	
-	public int getState() {
-		return state;
-	}
-
-	public void setState(int state) {
-		this.state = state;
-	}
-
 	public PowerBean() {
 		// TODO Auto-generated constructor stub
 	}
@@ -102,18 +90,11 @@ public class PowerBean implements Serializable{
 		this.describe = describe;
 	}
 
-	public long getFatherId() {
-		return fatherId;
-	}
-
-	public void setFatherId(long fatherId) {
-		this.fatherId = fatherId;
-	}
 
 	@Override
 	public String toString() {
 		return "PowerBean [id=" + id + ", name=" + name + ", founder=" + founder + ", time=" + time + ", describe="
-				+ describe + ", fatherId=" + fatherId + ", state=" + state + "]";
+				+ describe +  "]";
 	}
 
 	

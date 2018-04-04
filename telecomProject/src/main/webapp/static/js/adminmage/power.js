@@ -26,12 +26,12 @@ function queryParams(){
 		return data;
 	}
 	
-/**
- * 所有查询功能
- */
-$('#query').click(function(){
-	$('#power_tt').datagrid('reload',queryParams());
-});
+	/**
+	 * 所有查询功能
+	 */
+	$('#query').click(function(){
+		$('#power_tt').datagrid('reload',queryParams());
+	});
 	/**
 	 * 新增
 	 */
@@ -112,7 +112,7 @@ $('#query').click(function(){
 	 */
 	$('#updatepowers').click(function(){
 		var row = $('#power_tt').datagrid('getSelected')
-		var url = "power/updatePowerBean";
+		var url = "power/updatePowerBean/" + row.id;
 		$('#update_p_power').form('submit', {   
 			type:"POST",
 		    url:url,   
@@ -164,6 +164,7 @@ $('#query').click(function(){
 			success:function(msg){
 				var msg = eval('(' + msg + ')'); 
 		    	if(msg.status){
+		    		$('#power_tt').datagrid('reload',queryParams());
 		    		$('#add_power_dialog').dialog('close');
 		    	}
 				$.messager.show({
