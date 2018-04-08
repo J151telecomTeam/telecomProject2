@@ -115,7 +115,7 @@
 							name="name" style="width:150px;height:32px"/></td>
 					</tr>
 					<tr>
-						<td>服务器状态：</td>
+						<td>运行状态：</td>
 						<td>
 							<select id="s_state" class="easyui-combobox" name="state" style="width:200px;">
 	                         		<option value="无">无</option>

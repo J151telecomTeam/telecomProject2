@@ -71,18 +71,18 @@ public class BusinessController {
 			BusinessAccountBean bean = new BusinessAccountBean();
 			String osAccount = map.get("osAccount").toString();
 			String account = map.get("account").toString();
-			int type = Integer.parseInt(map.get("type").toString());
+			Long type = Long.parseLong(map.get("type").toString());
 			Long servicid = Long.parseLong(map.get("servicName").toString());
 			Long id = Long.parseLong(map.get("id").toString());
 			u.setAccount(account);
-			d.setType(type);
+			d=queryBusinessAccountServiceImpl.findDealByName(type);
 			s=queryBusinessAccountServiceImpl.findServiceByName(servicid);
 			bean.setOsAccount(osAccount);
 			bean.setId(id);
 			bean.setDeal(d);
 			bean.setUser(u);
 			bean.setServer(s);
-			operationBusinessAccountServiceImpl.updateBusinessAccountBean(bean);
+			operationBusinessAccountServiceImpl.saveBusinessAccountBean(bean);
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -90,6 +90,7 @@ public class BusinessController {
 			msg.setStatus(false);
 			msg.setInformation("当前在线人数过多，系统繁忙，请稍后重试！");
 			System.err.println(e);
+			e.printStackTrace();
 		}
 		return msg;
 	}
@@ -108,7 +109,43 @@ public class BusinessController {
 		return data;
 
 	};
+	@RequestMapping(value = "/deal", method = { RequestMethod.GET }, produces = { "application/json;charset=utf-8" })
+	public List<?>FindyByDealBeanName(){
+		List<DealBean> list = queryBusinessAccountServiceImpl.finddealBean();
+		List data =new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+        	Map map=new HashMap<>();
+        	
+			
+			if(list.get(i).getType()==1) {
+				map.put("id", list.get(i).getId());
+				map.put("text", "包月");
+			}else if(list.get(i).getType()==2) {
+				map.put("id", list.get(i).getId());
+				map.put("text", "套餐");
+			}else if(list.get(i).getType()==3) {
+				map.put("id", list.get(i).getId());
+				map.put("text", "计时");
+			}
+			data.add(map);
+		}return data;		
+	};
+	
+	
+	/*public List<?> FindyByDealBeanName() {
+		List<DealBean> list = queryBusinessAccountServiceImpl.finddealBean();
+		List data =new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			Map map=new HashMap<>();
+			map.put("id", list.get(i).getId());
+			map.put("text", list.get(i).getType());		
+			data.add(map);
+		}
+		
+		return data;
 
+	};*/
+	
 	@RequestMapping(value = "/live{id}", method = { RequestMethod.PUT }, produces = {
 			"application/json;charset=utf-8" })
 	public Messager updateBusinessByJiStatus(BusinessAccountBean user) {
@@ -125,7 +162,7 @@ public class BusinessController {
 
 	}
 
-	@RequestMapping(value = "/stop{id}", method = { RequestMethod.PUT }, produces = {
+	@RequestMapping(value = "/stop{id}", method = { RequestMethod.PUT}, produces = {
 			"application/json;charset=utf-8" })
 	public Messager updateBusinessByStatus(BusinessAccountBean user) {
 		Messager msg = new Messager(true, "操作成功！");
@@ -152,6 +189,7 @@ public class BusinessController {
 		params.put("account", account);
 		
 		page.setIndex(index);
+		
 		PageBean pages=queryBusinessAccountServiceImpl.findByParams2PageBean(page, params);
 		map.put("total", pages.getTotalRows());
 		map.put("rows", pages.getDatas());
@@ -175,14 +213,17 @@ public class BusinessController {
 			String osAccount = user.get("osAccount").toString();
 			Long idd = Long.parseLong(user.get("servicName").toString());
 			System.err.println(idd);
-			int type = Integer.parseInt(user.get("type").toString());
+			Long type = Long.parseLong(user.get("type").toString());
+			DealBean d = new DealBean();
+
+			d=queryBusinessAccountServiceImpl.findDealByName(type);
+			
 			String indentity = user.get("indentity").toString();
 			UserBean u = new UserBean();
 			u.setAccount(account);
 			u.setIndentity(indentity);
-			DealBean d = new DealBean();
-			d.setType(type);
-			ServerBean s = new ServerBean();
+						/*d.setType(type);
+*/			ServerBean s = new ServerBean();
 			s=queryBusinessAccountServiceImpl.findServiceByName(idd);
 			BusinessAccountBean bean = new BusinessAccountBean();
 			bean.setUser(u);
@@ -200,7 +241,7 @@ public class BusinessController {
 		}
 		return msg;
 	}
-	@RequestMapping(value = "/delet", method = { RequestMethod.DELETE }, produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "/delete{id}", method = { RequestMethod.PUT }, produces = { "application/json;charset=utf-8" })
 	public Messager deleteBusinessAccountBean(BusinessAccountBean bean) {
 		log.info(bean);
 		Messager msg = new Messager(true, "操作成功！");

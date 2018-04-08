@@ -3,7 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.telecom.project.usermag.mapper.UserMapper">
-<resultMap type="UserBean" id="userMap">
+	<resultMap type="UserBean" id="userMap">
 		<id property="id" column="u_id" javaType="long" />
 		<result property="name" column="u_name" javaType="string" />
 		<result property="gender" column="u_gender" javaType="string" />
@@ -16,13 +16,13 @@
 		<result property="account" column="u_account" javaType="string" />
 		<result property="picture" column="u_picture" javaType="string" />
 		<result property="status" column="u_status" javaType="string" />
-		
+
 	</resultMap>
-	
-	
+
+
 	<sql id="commonSQL">
 		<where>
-		<if test="params.indentity != null">
+			<if test="params.name != null">
 				and u_name like CONCAT(#{params.name},'%')
 			</if>
 			<if test="params.indentity != null">
@@ -36,19 +36,21 @@
 			</if>
 		</where>
 	</sql>
-	
+
 	<select id="countByParams2PageBean" resultType="long">
-		select count(u_id) from t_user
+		select count(u_id) from t_user where 1 = 1 
 		<include refid="commonSQL"></include>
+		and u_delete != -1
 	</select>
 
 	<select id="findByParams2PageBean" resultMap="userMap">
-		select * from t_user
+		select * from t_user where 1 = 1 
 		<include refid="commonSQL"></include>
+		and u_delete != -1
 		limit #{params.index},#{params.rows}
 	</select>
-	
 
-	
-	
-	</mapper>
+
+
+
+</mapper>

@@ -13,8 +13,11 @@ import com.telecom.project.beans.ServerBean;
 
 public interface BusinessAccountBeanMapper {
 	
-	
-	
+	/**
+	 * 查询所有的资费类型
+	 * @return
+	 */
+	public List<DealBean> finddealBean ();
 	/**
 	 * 根据服务器名字查询id
 	 * @param name
@@ -26,7 +29,7 @@ public interface BusinessAccountBeanMapper {
 	 * @return
 	 */
 	
-	public DealBean findDealByName(@Param("type")int type);
+	public DealBean findDealByName(@Param("id")Long id);
 	/***
 	 * 查询所有的服务器名字
 	 * @return

@@ -7,16 +7,12 @@ import com.telecom.project.beans.LoginLogBean;
 import com.telecom.project.beans.PageBean;
 
 public interface IQueryLoginlogService {
-	/**
-	 * 查询所有管理日志
-	 * @return
-	 */
-	public PageBean findAllLoginLogPage(PageBean page);
+	
 	/**
 	 * 条件查询日志
 	 * @param map
 	 * @return
 	 */
-	public PageBean findByConLoginLogPage(Map map,PageBean page);
+	public PageBean findByParams2PageBean(PageBean page,Map params);
 	
 }

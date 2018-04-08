@@ -53,10 +53,7 @@
 	</select>
 	
 		<select id="findByParams2PageBean" resultMap="adminMap">
-		SELECT	a.a_id,a.a_name,a.a_account,a.a_password,a.a_tel,a.a_mail,r.r_id,r.r_name FROM t_role AS r ,t_admin AS a
-	<!-- 	<where>
-		 r.`r_id`=a.`a_r_id`
-		</where> -->
+		SELECT	a.a_id,a.a_name,a.a_account,a.a_password,a.a_tel,a.a_mail,r.r_id,r.r_name FROM t_role AS r LEFT JOIN t_admin AS a ON r.r_id = a.a_r_id
 		<where>
 			 
 		 	<if test="params.name != null">
@@ -65,7 +62,6 @@
 			<if test="params.roleName != null">
 				and a_r_id like CONCAT(#{params.roleName},'%')
 			</if>
-				and r.`r_id`=a.`a_r_id`
 		</where>
 		
 		limit #{params.index},#{params.rows}

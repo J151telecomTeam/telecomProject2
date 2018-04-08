@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,6 +30,8 @@
 	charset="utf-8"></script>
 <script type="text/javascript"
 	src="/telecomProject/static/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript"
+	src="/telecomProject/static/js/easyui.login.js"></script>
 
 <link rel="stylesheet" type="text/css"
 	href="/telecomProject/static/easyui/themes/default/easyui.css">
@@ -38,16 +41,16 @@
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false"
 		style="height: 150px; background: url(/telecomProject/static/img/logo.jpg) no-repeat center;">
-		<p style="position: absolute; margin-top: 1px; margin-left: 75%;">欢迎您，XXX！</p>
+		<p style="position: absolute; margin-top: 1px; margin-left: 75%;">欢迎您，<shiro:principal/></p>
 		<a href="javascript:void(0)"
 			style="position: absolute; margin-top: 1px; margin-left: 83%;">[我的信息]</a>
 		<a href="javascript:void(0)"
 			style="position: absolute; margin-top: 1px; margin-left: 88%;">[修改密码]</a>
-		<a href="javascript:void(0)"
-			style="position: absolute; margin-top: 1px; margin-left: 93%;">[退出登陆]</a>
+		<a href="/telecomProject/shiro/logout"
+			style="position: absolute; margin-top: 1px; margin-left: 93%;" id="logout1">[退出登陆]</a>
 	</div>
 
-	<div data-options="region:'center',title:'数据列表'"
+	<div data-options="region:'center',title:'数据列表',iconCls:'icon-ok'"
 		style="padding: 5px; background: #eee;">
 
 		<iframe id="ifr1" name="iframe"
@@ -60,17 +63,71 @@
 		style="width: 230px;">
 		<div class="easyui-accordion" style="font-size: 60px; width: 100%;">
 			<ul class="tree easyui-tree" data-options="animate:true,lines:true">
+				<shiro:hasRole name="serverManager">
 				<li data-options="iconCls:'icon-group'"><span>服务器管理</span>
 					<ul>
 						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/serverManagement/serverTable.jsp" target="iframe">服务器管理</a></li>
 					</ul></li>
-
+				</shiro:hasRole>
+				
+				<shiro:hasRole name="userManager">
 				<li data-options="iconCls:'icon-group'"><span>用户管理</span>
 					<ul>
 						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/userManagement/userTable.jsp" target="iframe">用户管理</a></li>
 						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/userManagement/accounting/accountTable.jsp" target="iframe">业务管理</a></li>
 					</ul></li>
+				</shiro:hasRole>
+				
+				<shiro:hasRole name="adminManager">
+				<li data-options="iconCls:'icon-group'"><span>管理员管理</span>
+					<ul>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/adminmage/admin.jsp" target="iframe">管理员列表</a></li>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/adminmage/role.jsp" target="iframe">角色管理</a></li>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/adminmage/power.jsp" target="iframe">权限管理</a></li>
+					</ul></li>
+				</shiro:hasRole>
 
+				<shiro:hasRole name="billManager">
+				<li data-options="iconCls:'icon-group'"><span>账单系统</span>
+					<ul>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/bill/bill.jsp" target="iframe">账单处理</a></li>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/bill/accounting.jsp" target="iframe">账务统计</a></li>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/bill/deal.jsp" target="iframe">资费管理</a></li>
+					</ul></li>
+				</shiro:hasRole>
+				
+				<shiro:hasRole name="imageManager">
+				<li data-options="iconCls:'icon-group'"><span>图形报表</span>
+					<ul>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/graphic/businessmap.jsp" target="iframe">业务图形表</a></li>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/graphic/billmap.jsp" target="iframe">账单图形表</a></li>
+					</ul></li>
+				</shiro:hasRole>
+				
+				<shiro:hasRole name="logManager">
+				<li data-options="iconCls:'icon-group'"><span>日志管理</span>
+					<ul>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/loginDate/loginDateTable.jsp" target="iframe">登陆日志</a></li>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/ActiveDate/ActiveDatetable.jsp" target="iframe">操作日志</a></li>
+					</ul></li>
+				</shiro:hasRole>
+			</ul>
+			
+			
+			
+			<ul class="tree easyui-tree" data-options="animate:true,lines:true">
+				<shiro:hasRole name="allAdminManager">
+				<li data-options="iconCls:'icon-group'"><span>服务器管理</span>
+					<ul>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/serverManagement/serverTable.jsp" target="iframe">服务器管理</a></li>
+					</ul></li>
+				
+				<li data-options="iconCls:'icon-group'"><span>用户管理</span>
+					<ul>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/userManagement/userTable.jsp" target="iframe">用户管理</a></li>
+						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/userManagement/accounting/accountTable.jsp" target="iframe">业务管理</a></li>
+					</ul></li>
+				
 				<li data-options="iconCls:'icon-group'"><span>管理员管理</span>
 					<ul>
 						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/adminmage/admin.jsp" target="iframe">管理员列表</a></li>
@@ -84,18 +141,19 @@
 						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/bill/accounting.jsp" target="iframe">账务统计</a></li>
 						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/bill/deal.jsp" target="iframe">资费管理</a></li>
 					</ul></li>
-
+				
 				<li data-options="iconCls:'icon-group'"><span>图形报表</span>
 					<ul>
 						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/graphic/businessmap.jsp" target="iframe">业务图形表</a></li>
 						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/graphic/billmap.jsp" target="iframe">账单图形表</a></li>
 					</ul></li>
-
+				
 				<li data-options="iconCls:'icon-group'"><span>日志管理</span>
 					<ul>
 						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/loginDate/loginDateTable.jsp" target="iframe">登陆日志</a></li>
 						<li data-options="iconCls:'icon-group_add'"><a href="/telecomProject/jsp/ActiveDate/ActiveDatetable.jsp" target="iframe">操作日志</a></li>
 					</ul></li>
+				</shiro:hasRole>
 			</ul>
 		</div>
 	</div>

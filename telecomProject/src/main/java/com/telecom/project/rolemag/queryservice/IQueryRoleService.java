@@ -38,4 +38,8 @@ public interface IQueryRoleService {
 	 * @return
 	 */
 	public List<RoleBean> findAllRole();
+	
+    public boolean findRoleByName(String name);
+	
+	public void saveMiddle(RoleBean role);
 }

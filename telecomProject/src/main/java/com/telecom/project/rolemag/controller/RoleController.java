@@ -1,6 +1,7 @@
 package com.telecom.project.rolemag.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,23 +36,23 @@ public class RoleController {
 	@RequestMapping(value = "/findRoleAllPage", method = { RequestMethod.GET }, produces = {
 			"application/json;charset=utf-8" })
 	public Map findPowerListByObject2PageBean(PageBean page, RoleBean bean) {
-		
+		System.out.println(bean);
+	
 		Map map = new HashMap();
 		Map map1 = new HashMap();
 		map1.put("Name", bean.getName());
 		map1.put("Founder", bean.getFounder());
-		
 		try {
-			Long index = (page.getPage()-1)*page.getRows();
-			page.setIndex(index);
+		Long index = (page.getPage()-1)*page.getRows();
+		page.setIndex(index);
 			page = iqueryRoleServicImpl.findByParams2PageBean(page, map1);
 			map.put("total", page.getTotalPage());
 			map.put("rows", page.getDatas());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		System.out.println(map);
 		return map;
-
 	}
 
 	@RequestMapping(value = "/addRoleBean", method = { RequestMethod.POST }, produces = {
@@ -59,9 +60,17 @@ public class RoleController {
 	public Messager SaveRoleBean(RoleBean bean) {
 		System.out.println(1);
 		Messager msg = new Messager(true, "操作成功！");
+		Date day=new Date();
+		bean.setCreateTime(day);
 
 		try {
-			ioperationRoleServiceImpl.saveRole(bean);
+			if(iqueryRoleServicImpl.findRoleByName(bean.getName())) {
+				ioperationRoleServiceImpl.saveRole(bean);
+				iqueryRoleServicImpl.saveMiddle(bean);
+			}else {
+				msg.setInformation("角色名重复,请重新添加");
+			}
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			msg.setStatus(false);
@@ -88,7 +97,7 @@ public class RoleController {
 		return msg;
 	}
 
-	@RequestMapping(value = "/updateRoleBean", method = { RequestMethod.POST }, produces = {
+	@RequestMapping(value = "/updateRoleBean"+"/{id}", method = { RequestMethod.POST }, produces = {
 			"application/json;charset=utf-8" })
 	public Messager updateRoleBean(@RequestParam Map map) {
 //		public Messager updateRoleBean(RoleBean bean, PowerBean power) {

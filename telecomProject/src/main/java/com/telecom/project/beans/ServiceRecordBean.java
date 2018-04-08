@@ -3,11 +3,21 @@ package com.telecom.project.beans;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * 服务记录bean
  * @author 
  *
  */
+@Entity
+@Table(name="t_server_use_money",catalog="telecom")
 public class ServiceRecordBean implements Serializable{
 
 	/**
@@ -15,16 +25,26 @@ public class ServiceRecordBean implements Serializable{
 	 */
 	private static final long serialVersionUID = -443456758519122398L;
 
+	
+	@Id
+	@Column(name="s_id")
+	@GenericGenerator(name="server_use_money.id",strategy="identity")
+	@GeneratedValue(generator="server_use_money.id")
 	private long id;// 主键
 	
+	@Column(name="s_os_account",length=20)
 	private String osAccount; //os账号
 	
+	@Column(name="s_ip",length=30)
 	private String ip; //服务器ip
 	
+	@Column(name="s_login_time")
 	private Date startTime; //开始时间
 	
+	@Column(name="s_exit_time")
 	private Date exitTime; //结束时间
 	
+	@Column(name="s_run_time")
 	private long runTime; //总运行时间
 	
 	public ServiceRecordBean() {

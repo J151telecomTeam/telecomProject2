@@ -13,6 +13,8 @@
 	charset="utf-8"></script>
 <script type="text/javascript" src="/telecomProject/static/easyui/jquery.easyui.min.js"
 	charset="utf-8"></script>
+<script type="text/javascript" src="/telecomProject/static/js/easyui.userserver.js"
+	charset="utf-8"></script>
 <script type="text/javascript"
 	src="/telecomProject/static/easyui/locale/easyui-lang-zh_CN.js"></script>
 
@@ -26,10 +28,9 @@
 		服务器名称：<input id="" class="easyui-textbox" style="width:175px;heigth:22px"/>
 		<a id='selete' href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:true">精准查找</a>
 		<div style="float: right; margin-top: -12px; margin-right: 5%;">
-		<h3>您已租借 1 台服务器</h3> 
+		</div>
 	</div>
-	</div>
-<table id="tt" class="easyui-datagrid"
+<table id="usertt" class="easyui-datagrid"
 			style="width: auto; height: 100%"
 			data-options="fitColumns:true,method:'GET',idField:'id',striped:true,singleSelect:false,toolbar:'#tb',pagination:true">
 			<thead>
@@ -38,20 +39,13 @@
 					<th
 						data-options="field:'name',width:100,align:'center',sortable:true">服务器名称</th>
 					<th
-						data-options="field:'status',width:100,align:'center',sortable:true">服务器状态</th>
+						data-options="field:'ip',width:100,align:'center',sortable:true">服务器IP</th>
 					<th
-						data-options="field:'day',width:100,align:'center',sortable:true">已租借天数</th>
+						data-options="field:'maintain',width:100,align:'center',sortable:true">服务器状态</th>
 					<th
-						data-options="field:'service_tel',width:100,align:'center',sortable:true">客服电话</th>
-					<th
-						data-options="field:'Tariff_type',width:100,align:'center',sortable:true">资费类型</th>
-					<th
-						data-options="field:'expense',width:100,align:'center',sortable:true">费用</th>
-					<th
-						data-options="field:'ispay',width:100,align:'center',sortable:true">是否缴费</th>
+						data-options="field:'state',width:100,align:'center',sortable:true">运行状态</th>
 				</tr>
 			</thead>
 		</table>
-</div>
 </body>
 </html>

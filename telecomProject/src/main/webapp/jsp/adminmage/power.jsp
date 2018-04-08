@@ -79,11 +79,11 @@
 		<form id='add_a_power' method="post">
 				<tr>
 					<td>权限名：</td>
-					<td><input class="easyui-validatebox" required="required" type="text" id="p_name" name="name" data-options="required:false" /></td>
+					<td><input class="easyui-validatebox" required="required" type="text" id="name" name="name" data-options="required:false" /></td>
 				</tr><br/>
 				<tr>
 					<td>描述：</td>
-					<td><input class="easyui-validatebox" required="required" type="text" id="p_describe" name="describe" data-options="required:false" /></td>
+					<td><input class="easyui-validatebox" required="required" type="text" id="describe" name="describe" data-options="required:false" /></td>
 				</tr><br/>
 				<div style="position:absolute;right:0px;bottom:0px;">
 				<a id="add_power" href="javascript:void(0)"
@@ -102,6 +102,7 @@
 		collapsible:true,minimizable:true,maximizable:true,resizable:true,closable:true,closed:true">
 
 		<form id="update_p_power" method="post">
+			
 			<table style="margin: 0 auto;padding-top: 10px">
 				<tr>
 					<td>权限名：</td>

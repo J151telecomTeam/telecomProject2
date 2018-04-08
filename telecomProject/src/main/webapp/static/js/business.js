@@ -26,7 +26,7 @@ function queryParams(){	//findbyid页面数据封装
 	var servicName = $('#u_servicName').combobox('getValue');
 	var type = $('#u_type').combobox('getValue');
 	var indentity = $('#indentity').val();
-	
+	var status = $('#status').val();
 	var data = {
 		
 			account:account,
@@ -34,7 +34,7 @@ function queryParams(){	//findbyid页面数据封装
 			servicName:servicName,	
 			type:type,
 			indentity:indentity,
-			
+			status:status,
 			};
 	
 	return data;
@@ -104,7 +104,8 @@ function queryParams(){	//findbyid页面数据封装
 				$('#u_osAccount').attr('value',row.osAccount);
 				$('#u_account').attr('value',row.account);
 				$('#u_type').attr('value',row.type);
-				$('#u_servicName').attr('value',row.servicName);				
+				$('#u_servicName').attr('value',row.servicName);	
+				$('#u_status').attr('value',row.status);
 				$('#update_Accounting').form('validate');
 				
 			}else{
@@ -168,10 +169,10 @@ function queryParams(){	//findbyid页面数据封装
 			if(lenth == 1){
 				$('#u_id').attr('value',row.id);				
 				$('#update_users').form('validate');
-				$.messager.confirm('提示','是否删除用户?',function(r){
+				$.messager.confirm('提示','是否删除?',function(r){
 				    if (r){
 				    	var row = $('#tt').datagrid('getSelected')
-						var url = "/telecomProject/user/delete"+row.id;
+						var url = "/telecomProject/business/delete"+row.id;
 						$('#update_users').form('submit', {   
 						    url:url,   
 						    onSubmit: function(){   
@@ -212,6 +213,7 @@ function queryParams(){	//findbyid页面数据封装
 				showType:'slide'
 			});
 		}
+		
 	});
 	/**
 	 * 暂停业务
@@ -230,6 +232,7 @@ function queryParams(){	//findbyid页面数据封装
 						var url = "/telecomProject/business/stop"+row.id;
 						$('#update_users').form('submit', {   
 						    url:url,   
+						    Type:'PUT',
 						    onSubmit: function(){   
 						        // do some check
 						        // return false to prevent submit;
@@ -278,7 +281,8 @@ function queryParams(){	//findbyid页面数据封装
 		if(row){
 			var lenth = rows.length;
 			if(lenth == 1){
-				$('#u_id').attr('value',row.id);			
+				$('#u_id').attr('value',row.id);	
+				$('#u_status').attr('value',row.status);
 				$('#update_users').form('validate');
 				$.messager.confirm('提示','是否激活业务?',function(r){
 				    if (r){
@@ -286,6 +290,7 @@ function queryParams(){	//findbyid页面数据封装
 						var url = "/telecomProject/business/live"+row.id;
 						$('#update_users').form('submit', {   
 						    url:url,   
+						    Type:'PUT',
 						    onSubmit: function(){   
 						        // do some check
 						        // return false to prevent submit;

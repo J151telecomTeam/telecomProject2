@@ -79,6 +79,13 @@ public interface ServerMapper {
 	 * @return
 	 */
 	public long findServerByPage(@Param("map") Map map);
+	
+	/**
+	 * 查询用户分页
+	 * @param acc
+	 * @return
+	 */
+	public long findServerByUserAcc(@Param("acc") String acc);
 
 	/**
 	 * 资费查服务器
@@ -87,9 +94,17 @@ public interface ServerMapper {
 	 */
 	@ResultMap(value = "serverMap")
 	@Select(value = {
-			"select s.s_id from" + " t_service s left join t_service_account sa on sa.s_s_id = s.s_id left join"
+			"select s.s_id from" 
+					+ " t_service s left join t_service_account sa on sa.s_s_id = s.s_id left join"
 					+ " t_deal d on sa.s_d_id = d.d_id where d.d_id = #{id}" })
 	public List<ServerBean> findServerByDeal(long id);
+
+	/**
+	 * 查询所有用户服务器
+	 * @param map
+	 * @return
+	 */
+	public List<ServerBean> findAllUserServer(@Param("map")Map map);
 
 
 }

@@ -64,4 +64,23 @@ public class QueryRoleServiceImpl implements IQueryRoleService {
 		return dao.findAllRole();
 	}
 
+	@Override
+	public boolean findRoleByName(String name) {
+		// TODO Auto-generated method stub
+	    List<RoleBean> list =dao.findRoleByName(name);
+		if(list.size()!=0) {
+			return false;	
+		}else {
+			return true;
+		}
+		
+		
+	}
+
+	@Override
+	public void saveMiddle(RoleBean role) {
+		// TODO Auto-generated method stub
+		dao.saveMiddle(role);
+	}
+
 }

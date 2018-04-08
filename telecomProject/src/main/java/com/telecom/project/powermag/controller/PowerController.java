@@ -1,17 +1,20 @@
 package com.telecom.project.powermag.controller;
 
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.telecom.project.beans.Messager;
 import com.telecom.project.beans.PageBean;
@@ -37,6 +40,8 @@ public class PowerController {
 	
 		Map map = new HashMap();
 		Map map1 = new HashMap();
+		
+		
 		map1.put("Name", bean.getName());
 		map1.put("Founder", bean.getFounder());
 		try {
@@ -50,7 +55,7 @@ public class PowerController {
 		} catch (Exception e) {		
 			
 		}
-		
+		System.out.println(map);
 		return map;
 	
 }
@@ -89,11 +94,9 @@ public class PowerController {
 	@RequestMapping(value = "/addPowerBean", method = { RequestMethod.POST }, produces = { "application/json;charset=utf-8" })
 	public Messager SavePowerBean(PowerBean bean) {
 		Messager msg = new Messager(true, "操作成功！");
-		
+		Date day=new Date();
+		bean.setTime(day);
 		try {
-			Date date = new Date();
-			bean.setTime(date);
-			bean.setFounder("a");
 			IOperationPowerServiceimpl.savePower(bean);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -121,7 +124,7 @@ public class PowerController {
 	}
 	
 	
-	@RequestMapping(value = "/updatePowerBean/{id}", method = { RequestMethod.POST }, produces = { "application/json;charset=utf-8" })
+	@RequestMapping(value = "/updatePowerBean"+"/{id}", method = { RequestMethod.POST }, produces = { "application/json;charset=utf-8" })
 	public Messager updatePowerBean(PowerBean bean) {
 		log.info(bean);
 		Messager msg = new Messager(true, "操作成功！");
@@ -132,9 +135,6 @@ public class PowerController {
 			msg.setStatus(false);
 			msg.setInformation("当前在线人数过多，系统繁忙，请稍后重试！");
 		}
-		return msg;
-		
-	}
-	
-	
+		return msg;		
+	}	
 }

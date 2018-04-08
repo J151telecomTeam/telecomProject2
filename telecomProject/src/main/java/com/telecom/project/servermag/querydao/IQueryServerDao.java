@@ -56,6 +56,13 @@ public interface IQueryServerDao {
 	 * @return
 	 */
 	public long findServerByPage(Map map);
+	
+	/**
+	 * 查总用户服务器数据条数
+	 * @param acc
+	 * @return
+	 */
+	public long findServerByUserAcc(String acc);
 
 	/**
 	 * 资费查服务器
@@ -63,5 +70,12 @@ public interface IQueryServerDao {
 	 * @return
 	 */
 	public List<ServerBean> findServerByDeal(long id);
+	
+	/**
+	 * 查询所有用户服务器
+	 * @param params
+	 * @return
+	 */
+	public List<ServerBean> findAllUserServer(Map params);
 	
 }

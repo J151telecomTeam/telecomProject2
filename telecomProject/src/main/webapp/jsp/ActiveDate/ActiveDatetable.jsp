@@ -9,8 +9,6 @@
 </style>
 <script type="text/javascript" src="/telecomProject/static/js/jquery-3.3.1.min.js"
 	charset="utf-8"></script>
-<script type="text/javascript" src="/telecomProject/static/js/easyui.demo.js"
-	charset="utf-8"></script>
 <script type="text/javascript" src="/telecomProject/static/js/jquery.json-2.4.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="/telecomProject/static/easyui/jquery.easyui.min.js"
@@ -18,16 +16,52 @@
 <script type="text/javascript"
 	src="/telecomProject/static/easyui/locale/easyui-lang-zh_CN.js"></script>
 
+<script type="text/javascript" src="/telecomProject/static/js/Change.js"
+	charset="utf-8"></script>
+
 <link rel="stylesheet" type="text/css"
 	href="/telecomProject/static/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="/telecomProject/static/easyui/themes/icon.css">
+	
+<script type="text/javascript">
+	/**
+	 * 日期格式化函数
+	 */
+	function dateformatter(date) {
+		var y = date.getFullYear();
+		var m = date.getMonth() + 1;
+		var d = date.getDate();
+		return y + '-' + (m < 10 ? ('0' + m) : m) + '-'
+				+ (d < 10 ? ('0' + d) : d);
+	}
+</script>	
+	
 </head>
 <body class="easyui-layout">
 	<div id="tb">
-		<a id="seleteActiveDate"
+	<table style="margin: 0 auto;padding-top: 10px">
+                <tr>
+					<td>管理员姓名:</td>
+					<td><input class="easyui-validatebox" type="text" id="name" 
+						name="name" style="width:150px;height:32px"/></td>
+			
+					<td>操作开始时间:</td>
+					<td><input class="easyui-datebox" type="text" id="ontime" 
+						name="ontime" style="width:150px;height:32px"
+						data-options="required:false,formatter:dateformatter"/></td>
+				
+					<td>操作结束时间:</td>
+					<td><input class="easyui-datebox" type="text" id="endtime" 
+						name="endtime" style="width:150px;height:32px"
+						data-options="required:false,formatter:dateformatter"/></td>
+						
+						
+					<td><a id="seleteActiveDate"
 			href="javascript:void(0)" class="easyui-linkbutton"
-			data-options="iconCls:'icon-search',plain:true">查找</a>
+			data-options="iconCls:'icon-search',plain:true">查找</a></td>
+				</tr>
+            </table>
 	</div>
  <table id="tt" class="easyui-datagrid"
            style="width: auto; height: 100%"
@@ -36,39 +70,21 @@
         <tr>
             <th data-options="field:'ck',checkbox:true"></th>
             <th data-options="field:'name',width:50,align:'center',sortable:true">管理员名称</th>
-            <th data-options="field:'ip',width:50,align:'center',sortable:true">联系电话</th>
-             <th data-options="field:'time',width:50,align:'center',sortable:true">操作时间</th>
+            <th data-options="field:'account',width:50,align:'center',sortable:true">账号</th>
+             <th data-options="field:'changeTime',width:50,align:'center',sortable:true,
+			formatter: function(value,row,index){
+				var text = ''; 
+				if(value != ''){
+					var date = new Date(value);
+					text = date.format('yyyy-MM-dd');
+				}
+				return text;
+			}">操作时间</th>
              <th data-options="field:'type',width:50,align:'center',sortable:true">操作类型</th>
-             <th data-options="field:'miaoshu',width:50,align:'center',sortable:true">操作描述</th>
-             <th data-options="field:'fanhui',width:50,align:'center',sortable:true">返回结果</th>
+             <th data-options="field:'description',width:50,align:'center',sortable:true">操作描述</th>
+             <th data-options="field:'result',width:50,align:'center',sortable:true">返回结果</th>
         </tr>
         </thead>
     </table>
-    
-<div id="select_ActiveDate" class="easyui-dialog" title="操作日志查询" style="width:400px;height:250px;"
-         data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,">
-            <table style="margin: 0 auto;padding-top: 10px">
-                <tr>
-					<td>管理员姓名:</td>
-					<td><input class="easyui-textbox" type="text" id="u_userName" 
-						name="userName" style="width:150px;height:32px"/></td>
-				</tr>
-                <tr>
-					<td>操作开始时间:</td>
-					<td><input class="easyui-datebox" type="text" id="u_userName" 
-						name="userName" style="width:150px;height:32px"/></td>
-				</tr>
-                <tr>
-					<td>操作结束时间:</td>
-					<td><input class="easyui-datebox" type="text" id="u_userName" 
-						name="userName" style="width:150px;height:32px"/></td>
-				</tr>
-				
-            </table>
-            <div style="width: 205px;margin: 0 auto;padding-top: 15px">
-                <a id="ok" href="Javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100px;height:32px">确定</a>
-                <a id="not" href="Javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100px;height:32px">取消</a>
-            </div>
-    </div>   
 </body>
 </html>

@@ -24,9 +24,24 @@
 		</where>
 	</sql>
 	
+	<sql id="userCommonSQL">
+		<where>
+			<if test="map.name != null">
+					and s.s_name like CONCAT(#{map.name},'%')
+			</if>
+			<if test="map.acc != null">
+					and u.u_account = map.acc
+			</if>
+		</where>
+	</sql>
+	
 	<select id="findServerByPage" resultType="long">
 		select count(s_id) from t_service
 		<include refid="commonSQL"></include>
+	</select>
+	
+	<select id="findServerByUserAcc" resultType="long">
+		select count(s_id) from t_service s left join t_service_account sa on sa.s_s_id = s.s_id left join t_user u on sa.s_u_id = u.u_id where u.u_account = #{acc}
 	</select>
 	
 	
@@ -35,6 +50,12 @@
 		<include refid="commonSQL"></include>
 		limit #{map.index},#{map.rows}
 	</select>
+	
+	<!-- <select id="findAllUserServer" resultType="serverMap">
+		select s.s_id,s.s_name,s.s_ip,s.s_state,s.s_maintain from t_service s left join t_service_account sa on sa.s_s_id = s.s_id left join t_user u on sa.s_u_id = u.u_id
+		<include refid="userCommonSQL"></include>
+		limit #{map.index},#{map.rows}
+	</select> -->
 	
 	
 	

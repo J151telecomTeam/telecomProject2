@@ -73,4 +73,20 @@ public class QueryServerServiceImpl implements IQueryServerService{
 		return queryServerDaoImpl.findServerByDeal(id);
 	}
 
+	@Override
+	public PageBean findServerByUserAcc(PageBean page,String name,String acc) {
+		// TODO Auto-generated method stub
+		Map map = new HashMap();
+		map.put("acc", acc);
+		if(!name.equals("")) {
+			map.put("name" , name);
+		}
+		map.put("index", page.getIndex());
+		map.put("rows", page.getRows());
+		long totalRows = queryServerDaoImpl.findServerByUserAcc(acc);
+		page.setDatas(queryServerDaoImpl.findAllUserServer(map));
+		page.setTotalRows(totalRows);
+		return page;
+	}
+
 }

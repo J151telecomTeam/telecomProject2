@@ -44,6 +44,10 @@ public interface RoleMapper {
 	 */
 	public RoleBean findRoleById(@Param("id")long id);
 	
+	public List<RoleBean> findRoleByName(@Param("name")String name);
+	
+	public void saveMiddle(@Param("role") RoleBean role);
+	
 	/**
 	 * 修改i中间表
 	 */

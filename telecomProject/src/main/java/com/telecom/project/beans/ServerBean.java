@@ -34,16 +34,16 @@ public class ServerBean implements Serializable{
 	@GeneratedValue(generator="user.id")
 	private long id; //主键
 	 
-	@Column(name="s_ip")
+	@Column(name="s_ip",length=30)
 	private String ip; //服务器ip
 	
-	@Column(name="s_name")
+	@Column(name="s_name",length=20)
 	private String name; //服务器名
 	
-	@Column(name="s_state")
+	@Column(name="s_state",length=20)
 	private String state; //状态
 	
-	@Column(name="s_maintain")
+	@Column(name="s_maintain",length=20)
 	private String maintain; //服务器状态
 	
 	@OneToMany(fetch=FetchType.LAZY,mappedBy="server")

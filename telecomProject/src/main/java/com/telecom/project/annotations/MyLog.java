@@ -13,16 +13,16 @@ import java.lang.annotation.Target;
 @Inherited
 public @interface MyLog {
 	/**
-	 * 操作类的类名
+	 * 反回结果
 	 * @return
 	 */
-	String menuName() default "";
-	/**
-	 * 操作方法的方法名
-	 * @return
-	 */
-	String menuMethod() default "";
+	String result() default "";
 	
+	/**
+	 * 操作的类型（哪个类）
+	 * @return
+	 */
+	String type() default "";
 	/**
 	 * 也可以自己定义一个，操作方法对应的操作类型（0--新增，1--修改，2--删除）
 	 */

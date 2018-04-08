@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.telecom.project.changelogmag.mapper.ChangeMapper">
+	
+	<!-- 在mybatis配置文件中，包装类型，直接可以使用基础数据类型替代，String也可以使用string来替代 -->
+	<resultMap type="ChangeBean" id="ChangeMap">
+		<id property="id" column="c_id" javaType="long" />
+		<result property="changeTime" column="c_change_time" javaType="Date" />
+		<result property="name" column="c_name" javaType="string" />
+		<result property="type" column="c_type" javaType="string" />
+		<result property="description" column="c_description" javaType="string" />
+		<result property="result" column="c_result" javaType="string" />
+		<result property="account" column="c_account" javaType="string"/>
+	</resultMap>
+	
+	<sql id="commonSQL">
+		<where>
+			<if test="params.name != null">
+				 c_name like CONCAT(#{params.name},'%')
+			</if>
+			<if test="params.ontime != null and params.ontime !='' ">
+				and l_login_time &gt; #{params.ontime}
+			</if>
+			<if test="params.endtime != null and params.endtime !='' ">
+				and l_login_time &lt; #{params.endtime}
+			</if>
+		</where>
+	</sql>
+
+	<select id="countByParams2PageBean" resultType="long">
+		select count(c_id) from t_change
+		<include refid="commonSQL"></include>
+	</select>
+
+	<select id="findByParams2PageBean" resultMap="ChangeMap">
+		select
+			c_id,c_change_time,c_name,c_type,c_description,c_result,c_account from t_change
+		<include refid="commonSQL"></include>
+		limit #{params.index},#{params.rows}
+	</select>
+
+</mapper>

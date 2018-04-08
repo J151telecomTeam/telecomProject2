@@ -21,8 +21,26 @@
 	href="/telecomProject/static/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
 	href="/telecomProject/static/easyui/themes/icon.css">
+	
+	<script type="text/javascript">
+		function StatusFormatter(val,row,index){
+			var expense = row.deal.type;
+			if(expense==1){
+				return "包月";
+			}else if(expense==2){
+				return "套餐";
+			}else if(expense==3){
+				return "计时";
+			}
+		}
+
+	
+	</script>
 </head>
+
 <body class="easyui-layout">
+
+
   <div data-options="region:'center'">
   
            <!--  <a id="addAccounting" href="javascript:void(0)" class="easyui-linkbutton"
@@ -84,14 +102,12 @@
 					return value;
 				}
 			}">服务器名字</th>
-             <th data-options="field:'type',width:50,align:'center',sortable:'true',formatter: function(value,row,index){
-				
-				if (row.deal){
+             <th data-options="field:'type',width:50,align:'center',sortable:'true',formatter: StatusFormatter">资费类型</th> <!-- if (row.deal){
 					return row.deal.type;
 				} else {
 					return value;
 					}
-				}">资费类型</th>            
+				}            -->
              <th data-options="field:'indentity',width:50,align:'center',sortable:'true',formatter: function(value,row,index){
 				var ret = '';
 				if (row.user){
@@ -111,9 +127,7 @@
 				}
 				return ret;
 			}">是否激活</th>
-            
-          
-           
+                       
         </tr>
         </thead>         	
     </table>
@@ -126,10 +140,10 @@
          <table style="margin: 0 auto;padding-top: 10px">                          
                  <tr>
                     <td>账务账号:</td>
-                    <td> <input id="u_account" class="easyui-textbox" style="width:150px;height:32px" name="account" data-options="required:true"></td>
+                    <td> <input id="u_account" class="easyui-textbox"  name="account" data-options="required:true"></td>
                 
                     <td>OS账号:</td>
-                    <td> <input id="u_osAccount" class="easyui-textbox" style="width:150px;height:32px" name="osAccount" data-options="required:true"></td>
+                    <td> <input id="u_osAccount" class="easyui-textbox" name="osAccount" data-options="required:true"></td>
                 	</tr>
                 	<tr>
                     <td>服务器名字:</td>
@@ -146,11 +160,8 @@
                 </tr>
 				<tr>
                     <td>资费类型:</td>
-                    <td> <select id="u_type" class="easyui-combobox" name="type" style="width:80px;">  
-    				<option value="2">套餐</option>  
-    				<option value="1">包月</option>  
-    				<option value="3">计时</option>  
-    				</select> 
+                    <td><input class="easyui-combobox" name="type" id="u_type" 
+						data-options="valueField:'id',textField:'text',url:'/telecomProject/business/deal',method:'GET'" />
                 	</td>
                 </tr>                                    
             </table>
@@ -167,9 +178,8 @@
 		collapsible:true,minimizable:true,maximizable:true,resizable:true,closable:true,closed:true">
 
 
-		<form id="update_users" method="post">
+		    <form id="update_users" method="post">
 			<input type="hidden" name="_method" value="put" /> 
-			
 			<input type="hidden" name="id" id="u_id" /> 
 			<input type="hidden" name="indentity" id="u_indentity" /> 
 			<input type="hidden" name="status" id="u_status" /> 
@@ -177,21 +187,18 @@
 			  <tr>
 					<td>OS账号</td>
 					<td><input class="easyui-validatebox" type="text" id="u_osAccount" 
-						name="osAccount"  style="width:150px;height:32px" data-options="required:true"/></td>
+						name="osAccount"  data-options="required:true"/></td>
 				</tr>
 				
 				<tr>
 					<td>业务账号</td>
 					<td><input class="easyui-validatebox" type="text" id="u_account" 
-						name="account"  style="width:150px;height:32px" data-options="required:true"/></td>
+						name="account"  data-options="required:true"/></td>
 				</tr>
 				<tr>
 					<td>资费类型</td>
-					<td><select id="u_type" class="easyui-combobox" name="type" style="width:80px;">  
-    				<option value="2">套餐</option>  
-    				<option value="1">包月</option>  
-    				<option value="3">计时</option>  
-    				</select> </td>
+					 <td><input class="easyui-combobox" name="type" id="u_type" 
+						data-options="valueField:'id',textField:'text',url:'/telecomProject/business/deal',method:'GET'"/></td>
 				</tr>					
 				<tr>
 					<td>服务器名称</td>

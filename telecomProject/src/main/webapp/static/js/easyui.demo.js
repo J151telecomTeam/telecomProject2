@@ -38,6 +38,12 @@ $(function(){
 		
 	}
 
+	$('#add_odd').click(function(){
+		$('#formmm').submit();
+		  $('#tt').datagrid('reload',queryParams());
+		
+	})
+	
 	
 	/**
 	 * 新增服务器

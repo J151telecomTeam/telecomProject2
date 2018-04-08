@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.telecom.project.loginlogmag.mapper.LoginlogMapper">
+	
+	<!-- 在mybatis配置文件中，包装类型，直接可以使用基础数据类型替代，String也可以使用string来替代 -->
+	<resultMap type="LoginLogBean" id="LoginLogMap">
+		<id property="id" column="l_id" javaType="long" />
+		<result property="loginTime" column="l_login_time" javaType="Date" />
+		<result property="outTime" column="l_out_time" javaType="Date" />
+		<result property="name" column="l_name" javaType="string" />
+		<result property="loginIp" column="l_login_ip" javaType="string" />
+	</resultMap>
+	
+	<sql id="commonSQL">
+		<where>
+			<if test="params.name != null">
+				c_name like CONCAT(#{params.name},'%')
+			</if>
+			<if test="params.onDate != null">
+				and l_login_time &gt; #{params.onDate}
+			</if>
+			<if test="params.endDate != null">
+				and l_login_time &lt; #{params.endDate}
+			</if>
+		</where>
+	</sql>
+
+	<select id="countByParams2PageBean" resultType="long">
+		select count(l_id) from t_loginlog
+		<include refid="commonSQL"></include>
+	</select>
+
+	<select id="findByParams2PageBean" resultMap="LoginLogMap">
+		select
+			l_id,l_login_time,l_out_time,l_name,l_login_ip from t_loginlog
+		<include refid="commonSQL"></include>
+		limit #{params.index},#{params.rows}
+	</select>
+
+</mapper>

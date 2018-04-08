@@ -2,6 +2,7 @@ package com.telecom.project.usermag.mapper;
 
 import java.util.Map;
 
+import com.telecom.project.utils.StringUtils;
 
 /**
  * 用于拼接sql的bean

@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.telecom.project.beans.Messager;
 import com.telecom.project.beans.PageBean;
 import com.telecom.project.beans.ServerBean;
-import com.telecom.project.changelogmag.operationServerService.IOperationService;
 import com.telecom.project.servermag.operationservice.IOperationServerService;
 import com.telecom.project.servermag.queryservice.IQueryServerService;
 

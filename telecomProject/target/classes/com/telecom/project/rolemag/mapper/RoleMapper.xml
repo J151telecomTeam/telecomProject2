@@ -42,11 +42,11 @@
 	
 	<sql id="commonSQL">
 		<where>
-			<if test="map1.roleName != null">
-				and r_name like '%${map1.roleName}%'
+			<if test="map1.Name != null">
+				and r_name like '%${map1.Name}%'
 			</if>
-			<if test="map1.roleFounder !=null">
-			   and r_founder like '%${map1.roleFounder}%'
+			<if test="map1.Founder !=null">
+			   and r_founder like '%${map1.Founder}%'
 			</if>			
 		</where>
 	</sql>
@@ -68,6 +68,15 @@
 		</where> 
 	
 	</select>
+  
+  <select id="findRoleByName" resultMap="roleMap">
+        select r_id,r_name,r_founder,r_create_time,r_describe from t_role where r_name = #{name}
+    </select>
+  
+    
+    <insert id="saveMiddle">
+        insert into t_role_power (rp_r_id) values (#{role.id})
+    </insert>
     
     <select id="findAllpower" resultMap="powerMap">
     

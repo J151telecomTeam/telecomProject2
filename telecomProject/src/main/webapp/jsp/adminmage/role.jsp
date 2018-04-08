@@ -39,12 +39,13 @@
 			data-options="iconCls:'icon-reload',plain:true">修改角色</a> <a
 			id="delete" href="javascript:void(0)" class="easyui-linkbutton"
 			data-options="iconCls:'icon-remove',plain:true">删除角色</a>
-		<td>角色名: <input id="rname" class="easyui-textbox"
-			style="width: 150px; height: 32px">
-		</td>
-		<td>创建人: <input id="rfounder" class="easyui-textbox"
-			style="width: 150px; height: 32px">
-		</td>
+                <td>角色名:
+                    <input id="rname" class="easyui-textbox" style="width:150px;height:32px">
+                </td>
+                <td>创建人:
+                    <input id="rfounder" class="easyui-textbox" style="width:150px;height:32px">
+                </td>       
+                    
 		</td> <a id='query' href="javascript:void(0)" class="easyui-linkbutton"
 			data-options="iconCls:'icon-search',plain:true">查询</a>
 	</div>
@@ -91,17 +92,22 @@
 		data-options="title:'新增角色',modal:true,
 		collapsible:true,minimizable:true,maximizable:true,resizable:true,closable:true,closed:true">
 		<form id='add_role' method="post">
+		
 			<tr>
 				<td>角色名：</td>
-				<td><input class="easyui-validatebox" type="text" id="name"
+				<td><input class="easyui-validatebox"  required="required" type="text" id="name"
 					name="name" data-options="required:false" /></td>
 			</tr>
 			<br /> <br /> <br />
+			<tr>
 			<td>描述：</td>
 			<td><input class="easyui-validatebox" required="required"
 				type="text" id="describe" name="describe"
-				data-options="required:false" /></td>
-			</tr>
+				data-options="required:false" />
+				
+			</td>
+			 </tr>
+			 <br /> <br /> <br />
 			<br />
 			<div style="position: absolute; right: 0px; bottom: 0px;">
 				<a id="add_r_role" href="javascript:void(0)"

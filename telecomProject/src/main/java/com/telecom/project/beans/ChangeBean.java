@@ -110,5 +110,11 @@ public class ChangeBean implements Serializable{
 		this.account = account;
 	}
 
+	@Override
+	public String toString() {
+		return "ChangeBean [id=" + id + ", changeTime=" + changeTime + ", name=" + name + ", type=" + type
+				+ ", description=" + description + ", result=" + result + ", account=" + account + "]";
+	}
+
 	
 }

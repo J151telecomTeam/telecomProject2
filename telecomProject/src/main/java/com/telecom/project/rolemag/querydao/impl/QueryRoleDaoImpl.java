@@ -67,4 +67,20 @@ public class QueryRoleDaoImpl implements IQueryRoleDao {
 	}
 
 
+
+	@Override
+	public List<RoleBean> findRoleByName(String name) {
+		// TODO Auto-generated method stub
+		return rm.findRoleByName(name);
+	}
+
+
+
+	@Override
+	public void saveMiddle(RoleBean role) {
+		// TODO Auto-generated method stub
+		rm.saveMiddle(role);
+	}
+
+
 }

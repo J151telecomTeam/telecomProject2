@@ -88,21 +88,31 @@ $(function(){
 			var row = $('#servertt').datagrid('getSelected');
 			var url = "/telecomProject/server/open/" + row.id;
 			var json = $.toJSON(row);
-			$.ajax({
-				   type: "POST",
-				   url: url,
-				   contentType:"application/json",
-				   data: json,
-				   success: function(msg){
-					   $.messager.show({
-							title:'提示',
-							msg:msg.information,
-							timeout:5000,
-							showType:'slide'
-						});
-					   $('#servertt').datagrid('reload',queryParams());
-				   }
+			var state = row.state;
+			if(state == "开启"){
+				$.messager.show({
+					title:'提示',
+					msg:'服务器拒绝再次启动！',
+					timeout:5000,
+					showType:'slide'
 				});
+			}else{
+				$.ajax({
+					   type: "POST",
+					   url: url,
+					   contentType:"application/json",
+					   data: json,
+					   success: function(msg){
+						   $.messager.show({
+								title:'提示',
+								msg:msg.information,
+								timeout:5000,
+								showType:'slide'
+							});
+						   $('#servertt').datagrid('reload',queryParams());
+					   }
+					});
+			}
 		}
 		
 	});
@@ -132,21 +142,31 @@ $(function(){
 			var row = $('#servertt').datagrid('getSelected');
 			var url = "/telecomProject/server/off/" + row.id;
 			var json = $.toJSON(row);
-			$.ajax({
-				   type: "POST",
-				   url: url,
-				   contentType:"application/json",
-				   data: json,
-				   success: function(msg){
-					   $.messager.show({
-							title:'提示',
-							msg:msg.information,
-							timeout:5000,
-							showType:'slide'
-						});
-					   $('#servertt').datagrid('reload',queryParams());
-				   }
+			var state = row.state;
+			if(state == "关闭"){
+				$.messager.show({
+					title:'提示',
+					msg:'服务器拒绝重复停用！',
+					timeout:5000,
+					showType:'slide'
 				});
+			}else{
+				$.ajax({
+					   type: "POST",
+					   url: url,
+					   contentType:"application/json",
+					   data: json,
+					   success: function(msg){
+						   $.messager.show({
+								title:'提示',
+								msg:msg.information,
+								timeout:5000,
+								showType:'slide'
+							});
+						   $('#servertt').datagrid('reload',queryParams());
+					   }
+					});
+			}
 		}
 	});
 	

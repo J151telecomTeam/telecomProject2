@@ -148,7 +148,8 @@
 		com.telecom.project.billmag.mapper;
 		com.telecom.project.accountingmag.mapper;
 		com.telecom.project.dealmag.mapper;
-		com.telecom.project.reportformsmag.mapper"></property>
+		com.telecom.project.reportformsmag.mapper;
+		com.telecom.project.shiromag.mapper"></property>
 
 		<property name="sqlSessionFactoryBeanName" value="mySessionFactory"></property>
 	</bean>
@@ -207,83 +208,6 @@
 	<!-- entity-manager-factory-ref 再使用这个标签所对应的localEntityManagerFactoryBean，完成对上述接口实例化，并且注入Session -->
 	<jpa:repositories base-package="com.telecom.project"
 		entity-manager-factory-ref="localEntityManagerFactoryBean"></jpa:repositories>
-
-
-	<!-- 添加shiro配置 -->
-	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
-		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login" />
-		<property name="successUrl" value="/jsp/user" />
-		<property name="unauthorizedUrl" value="/jsp/user" />
-		<property name="filterChainDefinitions">
-			<value>
-				/jsp/** = anon
-			</value>
-		</property>
-	</bean>
-
-
-	<!-- 添加securityManagerper配置 -->
-	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<!-- 单realm应用。如果有多个realm，使用‘realms’属性代替 -->
-		<property name="realm" ref="sampleRealm" />
-		<property name="cacheManager" ref="cacheManager" />
-	</bean>
-
-
-	<!-- 配置jdbcRealm -->
-	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager" />
-
-	<bean id="sampleRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
-		<property name="dataSource" ref="dataSource" />
-		<property name="authenticationQuery"
-			value="select a_password from t_admin where a_account = ?" />
-		<property name="userRolesQuery"
-			value="select r.r_name from t_admin a left join t_role r on a.a_r_id = r.r_id where a.a_account = ? " />
-		<property name="permissionsQuery"
-			value="select p.p_name from t_role r left join t_role_power rp on r.r_id = rp.rp_r_id left join t_power p on rp.rp_p_id = p.p_id where r.r_name = ?" />
-		<property name="permissionsLookupEnabled" value="true" />
-		<property name="saltStyle" value="NO_SALT" />
-		<property name="credentialsMatcher" ref="hashedCredentialsMatcher" />
-	</bean>
-
-	<bean id="hashedCredentialsMatcher"
-		class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-		<property name="hashAlgorithmName" value="MD5" />
-		<property name="storedCredentialsHexEncoded" value="true" />
-		<property name="hashIterations" value="1" />
-	</bean>
-
-	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
-
-	<bean id="annotationProxy"
-		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-		depends-on="lifecycleBeanPostProcessor">
-		<property name="proxyTargetClass" value="true" />
-	</bean>
-
-	<!-- 开启Shiro注解的Spring配置方式的beans。在lifecycleBeanPostProcessor之后运行 -->
-	<bean
-		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-		depends-on="lifecycleBeanPostProcessor" />
-	<bean
-		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager" />
-	</bean>
-
-	<bean
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="exceptionMappings">
-			<props>
-				<prop key="org.apache.shiro.authz.UnauthorizedException">
-					/unauthorized
-				</prop>
-				<prop key="org.apache.shiro.authz.UnauthenticatedException">
-					/unauthenticated
-				</prop>
-			</props>
-		</property>
-	</bean>
 
 
 	<!--开启这个配置，spring才能识别@Scheduled注解 -->

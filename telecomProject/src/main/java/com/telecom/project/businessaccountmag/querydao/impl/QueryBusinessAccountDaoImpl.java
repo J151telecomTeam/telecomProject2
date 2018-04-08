@@ -65,15 +65,21 @@ public class QueryBusinessAccountDaoImpl implements IQueryBusinessAccountDao{
 
 	
 	@Override
-	public DealBean findDealByName(int type) {
+	public DealBean findDealByName(Long id) {
 		// TODO Auto-generated method stub
-		return ba.findDealByName(type);
+		return ba.findDealByName(id);
 	}
 
 	@Override
 	public ServerBean findServiceByName(Long id) {
 		// TODO Auto-generated method stub
 		return ba.findServiceByName(id);
+	}
+
+	@Override
+	public List<DealBean> finddealBean() {
+		// TODO Auto-generated method stub
+		return ba.finddealBean();
 	}
 
 	

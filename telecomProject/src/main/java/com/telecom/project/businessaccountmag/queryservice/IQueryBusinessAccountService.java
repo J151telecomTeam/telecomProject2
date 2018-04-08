@@ -19,7 +19,11 @@ import com.telecom.project.beans.ServerBean;
 public interface IQueryBusinessAccountService {
 
 	
-	
+	/**
+	 * 查询所有的资费类型
+	 * @return
+	 */
+	public List<DealBean> finddealBean ();
 	/**
 	 * 根据id查询服务器名字
 	 * @param name
@@ -31,7 +35,7 @@ public interface IQueryBusinessAccountService {
 	 * @return
 	 */
 	
-	public DealBean findDealByName(int type);
+	public DealBean findDealByName(Long id);
 	/***
 	 * 查询所有的服务器名字
 	 * @return

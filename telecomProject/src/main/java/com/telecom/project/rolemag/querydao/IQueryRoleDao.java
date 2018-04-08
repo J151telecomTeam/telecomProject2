@@ -3,6 +3,8 @@ package com.telecom.project.rolemag.querydao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.telecom.project.beans.AdminBean;
 import com.telecom.project.beans.PageBean;
 import com.telecom.project.beans.PowerBean;
@@ -46,4 +48,9 @@ public interface IQueryRoleDao {
 	public RoleBean findRoleById(long id);
 	
 	public List<RoleBean> findAllRole();
+	
+	
+	public List<RoleBean> findRoleByName(String name);
+	
+	public void saveMiddle(RoleBean role);
 }

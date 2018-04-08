@@ -21,6 +21,12 @@ public interface IQueryServerService {
 	public List<ServerBean> findServerByUser(long id);
 	
 	/**
+	 * 用户查服务器分页
+	 * @return
+	 */
+	public PageBean findServerByUserAcc(PageBean page,String name,String acc);
+	
+	/**
 	 * 查询所有服务器分页
 	 * @param page
 	 * @return

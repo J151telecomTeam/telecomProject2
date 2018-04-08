@@ -4,13 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>登录日志页面</title>
 <style type="text/css">
 </style>
 <script type="text/javascript" src="/telecomProject/static/js/jquery-3.3.1.min.js"
 	charset="utf-8"></script>
-<script type="text/javascript" src="/telecomProject/static/js/easyui.demo.js"
+	
+	<script type="text/javascript" src="/telecomProject/static/js/LoginLog.js"
 	charset="utf-8"></script>
+	
 <script type="text/javascript" src="/telecomProject/static/js/jquery.json-2.4.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="/telecomProject/static/easyui/jquery.easyui.min.js"
@@ -25,9 +27,27 @@
 </head>
 <body class="easyui-layout">
 	<div id="tb">
-		<a id='seleteloginDate'
-			href="javascript:void(0)" class="easyui-linkbutton"
-			data-options="iconCls:'icon-search',plain:true">查找</a>
+	 <table style="margin: 0 auto;padding-top: 10px">
+                <tr>
+					<td>管理员姓名:</td>
+					<td><input class="easyui-textbox" type="text" id="name" 
+						name="name" style="width:150px;height:32px"/></td>
+						
+					<td>开始时间:</td>
+					<td><input class="easyui-datebox" type="text" id="ontime" 
+						name="ontime" style="width:150px;height:32px"/></td>
+						
+				 	<td>结束时间:</td>
+					<td><input class="easyui-datebox" type="text" id="endtime" 
+						name="endtime" style="width:150px;height:32px"/></td>
+						
+					<td><a id='seleteloginDate'
+						href="javascript:void(0)" class="easyui-linkbutton"
+						data-options="iconCls:'icon-search',plain:true">查找</a></td>
+				</tr>
+				
+            </table>
+		
 	</div>
  <table id="tt" class="easyui-datagrid"
            style="width: auto; height: 100%"
@@ -36,41 +56,27 @@
         <tr>
             <th data-options="field:'ck',checkbox:true"></th>
             <th data-options="field:'name',width:70,align:'center',sortable:true">管理员名称</th>
-            <th data-options="field:'telephone',width:70,align:'center',sortable:true">联系电话</th>
-             <th data-options="field:'longinTime',width:70,align:'center',sortable:true">登陆时间</th>
-             <th data-options="field:'ExitTime',width:70,align:'center',sortable:true">退出时间</th>   
+            <th data-options="field:'loginIp',width:70,align:'center',sortable:true">登录ip</th>
+             <th data-options="field:'loginTime',width:70,align:'center',sortable:true,
+			formatter: function(value,row,index){
+				var text = ''; 
+				if(value != ''){
+					var date = new Date(value);
+					text = date.format('yyyy-MM-dd');
+				}
+				return text;
+			}">登陆时间</th>
+             <th data-options="field:'outTime',width:70,align:'center',sortable:true,
+			formatter: function(value,row,index){
+				var text = ''; 
+				if(value != ''){
+					var date = new Date(value);
+					text = date.format('yyyy-MM-dd');
+				}
+				return text;
+			}">退出时间</th>   
         </tr>
         </thead>
     </table>
-<div id="select_loginDate" class="easyui-dialog" title="操作日志查询" style="width:600px;height:200px;"
-         data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true,">
-            <table style="margin: 0 auto;padding-top: 10px">
-                <tr>
-					<td>管理员姓名:</td>
-					<td><input class="easyui-textbox" type="text" id="u_userName" 
-						name="userName" style="width:150px;height:32px"/></td>
-					<td>类型操作:</td>
-					<td><input class="easyui-textbox" type="text" id="u_userName" 
-						name="userName" style="width:150px;height:32px"/></td>
-					
-				</tr>
-                <tr>
-					<td>操作开始时间:</td>
-					<td><input class="easyui-datebox" type="text" id="u_userName" 
-						name="userName" style="width:150px;height:32px"/></td>
-				 	<td>操作结束时间:</td>
-					<td><input class="easyui-datebox" type="text" id="u_userName" 
-						name="userName" style="width:150px;height:32px"/></td>
-				
-				</tr>
-               
-					
-				
-            </table>
-            <div style="width: 205px;margin: 0 auto;padding-top: 15px">
-                <a id="ok" href="Javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100px;height:32px">确定</a>
-                <a id="not" href="Javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" style="width: 100px;height:32px">取消</a>
-            </div>
-    </div>   
 </body>
 </html>

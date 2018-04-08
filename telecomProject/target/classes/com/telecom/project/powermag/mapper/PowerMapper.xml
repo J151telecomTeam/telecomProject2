@@ -35,7 +35,7 @@
 			<if test="map1.Name != null">
 				and p_name like '%${map1.Name}%'
 			</if>
-			<if test="map1.Founder != null">
+			<if test="map1.Founder !=null">
 			   and p_founder like '%${map1.Founder}%'
 			</if>
 			

@@ -55,8 +55,12 @@
 		<td><a id="stopuser"
 			href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel',plain:true">停用</a></td>
 		<td><a id="liveuser"
-			href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true">激活</a></td>
-	</tr>
+			href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-help',plain:true">激活</a></td>		
+		<td><form id="formmm" action="/telecomProject/users/excel" method="post" enctype="multipart/form-data">			
+		<input type="file" name="file"/>
+	    </form>
+	    <input  id="add_odd" type="button" value="excel上传"/>
+		</tr>
 	
 	
 	<!-- 
@@ -103,20 +107,20 @@
          <table style="margin: 0 auto;padding-top: 10px">
                 <tr>
                     <td>姓名:</td>
-                    <td> <input id="add_name" class="easyui-textbox" style="width:150px;height:32px" name="name" data-options="required:true"></td>
+                    <td> <input id="u_name" class="easyui-textbox" style="width:150px;height:32px" name="name" data-options="required:true"></td>
                 	<td>账务账号:</td>
-                    <td> <input id="add_account" class="easyui-textbox" style="width:150px;height:32px" name="account" data-options="required:true"></td>              
+                    <td> <input id="u_account" class="easyui-textbox" style="width:150px;height:32px" name="account" data-options="required:true"></td>              
                 </tr>                                           
                 	<tr>
                     <td>联系电话:</td>
-                    <td> <input id="add_phone" type="easyui-textbox" class="easyui-textbox" style="width:150px;height:32px" name="phone" data-options="required:true,validType:'Length[11]'"></td>
+                    <td> <input id="u_phone" type="easyui-textbox" class="easyui-textbox" style="width:150px;height:32px" name="phone" data-options="required:true,validType:'Length[11]'"></td>
                      <td>身份证号:</td>
-                    <td> <input id="add_indentity" type="easyui-textbox" class="easyui-textbox" style="width:150px;height:32px" name="indentity" data-options="required:true"></td>
+                    <td> <input id="u_indentity" type="easyui-textbox" class="easyui-textbox" style="width:150px;height:32px" name="indentity" data-options="required:true"></td>
                 </tr>
 					<tr>
 					<tr>
                     <td>地址:</td>
-                    <td> <input id="add_address" class="easyui-textbox" style="width:150px;height:32px" name="address" data-options="required:true"></td>
+                    <td> <input id="u_address" class="easyui-textbox" style="width:150px;height:32px" name="address" data-options="required:true"></td>
                     <td>性别:</td>
                 	<td>
                     	<input type="radio" checked="checked"  name='gender' value="1" >男 
@@ -127,19 +131,19 @@
                 
                 <tr>
                     <td>邮编:</td>
-                    <td> <input id="add_postcode" type="easyui-textbox" class="easyui-textbox" style="width:150px;height:32px" name="postcode"></td>
+                    <td> <input id="i_postcode" type="easyui-textbox" class="easyui-textbox" style="width:150px;height:32px" name="postcode"></td>
                		<td>QQ:</td>
-                    <td> <input id="add_qq" type="easyui-textbox" class="easyui-textbox" style="width:150px;height:32px" name="qq"></td>
+                    <td> <input id="i_qq" type="easyui-textbox" class="easyui-textbox" style="width:150px;height:32px" name="qq"></td>
                
                 </tr>              
             </table>
 	</form>
 	    <div style="width: 220px;margin: 0 auto;padding-top: 15px"; id="add_users_dialog_bb">
 		<a id="ok" href="Javascript:void(0)" class="easyui-linkbutton" iconCls="icon-ok" style="width: 60px;height:32px" >确定</a>
-        <a id="not" href="Javascript:void(0)" class="easyui-linkbutton" iconCls="icon-no" style="width: 60px;height:32px"onclick="$('#add_user').dialog('close')">取消</a>     			
-        <a id="not" href="Javascript:void(0)" class="easyui-linkbutton" style="width: 90px;height:32px">文件上传</a>     
-			
+        <a id="not" href="Javascript:void(0)" class="easyui-linkbutton" iconCls="icon-no" style="width: 60px;height:32px"onclick="$('#add_user').dialog('close')">取消</a>  
+                   						
 	     </div>	
+	  
 	</div>
 	
 	<div id="update_user" class="easyui-dialog"

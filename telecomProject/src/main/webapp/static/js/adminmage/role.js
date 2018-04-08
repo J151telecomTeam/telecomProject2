@@ -24,15 +24,12 @@ $(function(){
 		return data;
 	}
 	
-	
-	
 	/**
 	 * 所有查询功能
 	 */
 	$('#query').click(function(){
 		$('#rolett').datagrid('reload',queryParams());
 	});
-	
 	/**
 	 * 新增
 	 */
@@ -90,7 +87,7 @@ $(function(){
 			var lenth = rows.length;
 			if(lenth == 1){
 				$('#update_role_dialog').dialog('open');
-				console.info(row.id)
+			
 				$('#r_id').attr('value',row.id);
 			}else{
 				$.messager.show({
@@ -115,7 +112,7 @@ $(function(){
 	 */
 	$('#updatepowers').click(function(){
 		var row = $('#rolett').datagrid('getSelected');
-		var url = "Role/updateRoleBean";
+		var url = "Role/updateRoleBean/"+row.id;
 		$('#update_r_role').form('submit', {   
 		    url:url,   
 		    onSubmit: function(){   
@@ -126,7 +123,7 @@ $(function(){
 		    success:function(data){ 
 		    	var data = eval('(' + data + ')'); 
 		    	if(data.status){
-		    		$('#update_users_dialog').dialog('close');
+		    		$('#update_role_dialog').dialog('close');
 		    	}
 		    	 $.messager.show({
 						title:'提示',

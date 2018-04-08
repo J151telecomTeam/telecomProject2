@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.telecom.project.billmag.mapper.ServerRecordMapper">
+	
+	<resultMap type="ServiceRecordBean" id="ServiceRecordMap">
+		<id property="id" column="s_id" javaType="long"/>
+		<result property="osAccount" column="s_os_account" javaType="string"/>
+		<result property="ip" column="s_ip" javaType="string"/>
+		<result property="startTime" column="s_login_time" javaType="date"/>
+		<result property="exitTime" column="s_exit_time" javaType="date"/>
+		<result property="runTime" column="s_run_time" javaType="long"/>
+	</resultMap>
+
+</mapper>

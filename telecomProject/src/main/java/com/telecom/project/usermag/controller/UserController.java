@@ -1,20 +1,28 @@
 package com.telecom.project.usermag.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
-
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.telecom.project.beans.BillMonthBean;
 import com.telecom.project.beans.BusinessAccountBean;
+import com.telecom.project.beans.InfoVo;
 import com.telecom.project.beans.LargeBean;
 import com.telecom.project.beans.Messager;
 import com.telecom.project.beans.PageBean;
@@ -22,6 +30,7 @@ import com.telecom.project.beans.UserBean;
 import com.telecom.project.businessaccountmag.queryservice.IQueryBusinessAccountService;
 import com.telecom.project.usermag.operationservice.IOperationUserService;
 import com.telecom.project.usermag.queryservice.IQueryUserService;
+import com.telecom.project.utils.ImportExcelUtil;
 
 /**
  * 用于处理请求响应的bean
@@ -43,10 +52,10 @@ public class UserController {
 
 	private Logger log = Logger.getLogger(this.getClass());
 	
-	@RequestMapping(value = "/findbyid{id}", method = { RequestMethod.GET}, produces = { "application/json;charset=utf-8" })
+	/*@RequestMapping(value = "/findbyid{id}", method = { RequestMethod.GET}, produces = { "application/json;charset=utf-8" })
 	public LargeBean findByLargeBean(UserBean user) {
-		
-		String account=user.getAccount();
+		*/
+		/*String account=user.getAccount();
 		Long id=user.getId();
 		LargeBean large =new LargeBean();
 		BusinessAccountBean bean=queryBusinessAccountServiceImpl.finbyIdLargeBean(id);				
@@ -55,10 +64,9 @@ public class UserController {
 		large.setServerName(bean.getServer().getName());
 		large.setType(bean.getDeal().getType());
 		large.setState(bean1.getState());	
-		return large;
-		
-	}
-	
+		return large;*/
+	/*	
+	}*/
 	
 	@RequestMapping(value = "/stopuser{id}", method = { RequestMethod.PUT}, produces = { "application/json;charset=utf-8" })
 	public Messager updateUserBeanByStatus(UserBean user) {	
@@ -214,13 +222,27 @@ public class UserController {
 		System.err.println(user);
 		Map<String, Object> map = new HashMap<>();
 		Map params = new HashMap<>();
-		params.put("indentity", user.getIndentity());
-		params.put("address", user.getAddress());
-		params.put("name", user.getName());		
-		PageBean pages = queryUserServiceImpl.findByParams2PageBean(page, params);
-		map.put("total", pages.getTotalRows());
-		map.put("rows", pages.getDatas());
-		System.out.println(map);
+		if (user.getIndentity().equals("")) {
+			params.put("indentity", null);
+		} else {
+			params.put("indentity", user.getIndentity());
+		}
+		if (user.getAddress().equals("")) {
+			params.put("address", null);
+		} else {
+			params.put("address", user.getAddress());
+		}
+		if (user.getName().equals("")) {
+			params.put("name", null);
+		} else {
+			params.put("name", user.getName());
+		}
+		Long index = (page.getPage()-1) * page.getRows();
+		page.setIndex(index);
+		
+		page = queryUserServiceImpl.findByParams2PageBean(page, params);
+		map.put("total", page.getTotalRows());
+		map.put("rows", page.getDatas());
 		return map;
 	}	
 	@RequestMapping(value = "/delete{id}", method = { RequestMethod.PUT}, produces = { "application/json;charset=utf-8" })
